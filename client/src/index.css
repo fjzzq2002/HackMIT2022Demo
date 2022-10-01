@@ -35,3 +35,25 @@ code {
 .logo {
   font-size: 30px;
 }
+
+.lightbulb path {
+  stroke-width: 1.4px !important;
+}
+.lightbulb {
+  font-size: 21px;
+}
+
+.sun path {
+  stroke-width: 1.6px !important;
+}
+.sun {
+  font-size: 21px;
+}
+
+.sparkle path {
+  stroke-width: 1.3px !important;
+}
+
+.sparkle {
+  font-size: 20px;
+}
