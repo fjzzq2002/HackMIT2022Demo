@@ -55,7 +55,7 @@ export default function Editor() {
         body: JSON.stringify({content: content, title: title, description: description, type: type})
         };
         const result = await fetch("http://localhost:5000/api/post", requestOptions);
-        // console.log(await result.text());
+        console.log(await result.text());
     }
 
     return (<>
