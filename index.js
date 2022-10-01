@@ -173,15 +173,17 @@ app.get("/api/list", (req, res) => {
 
 /** 
  * /api/post:
-​		Input: req.query.title, req.query.content, req.query.description, req.query.type
+​		Input: req.body.title, req.body.content, req.body.description, req.body.type
 ​		Effect: will post the article
  */
-app.get('/api/post', async (req, res) => {
+app.post('/api/post', async (req, res) => {
     if (! await verifyCookie(req)) {
         res.send("Not logged in");
         return ;
     }
-    await postArticle(req, req.query.title, req.query.content, req.query.description, req.query.type);
+    const result = req.body;
+    console.log(result);
+    await postArticle(req, result.title, result.content, result.description, result.type);
 });
 
 function getAccess(user, article) {

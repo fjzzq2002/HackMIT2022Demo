@@ -46,8 +46,16 @@ export default function Editor() {
         { value: 'Insight', content: <><HiOutlineLightBulb className="lightbulb"/> Insight</> },
     ];
 
-    function onClick() {
-        console.log(value,title,summary);
+    async function onClick() {
+        // console.log(value,title,summary);
+        const content = value, description = summary, type = radioValue;
+        const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({content: content, title: title, description: description, type: type})
+        };
+        const result = await fetch("http://localhost:5000/api/post", requestOptions);
+        // console.log(await result.text());
     }
 
     return (<>
