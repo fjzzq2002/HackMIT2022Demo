@@ -3,6 +3,10 @@ const path = require('path');
 
 const app = express();
 
+// import article from './article.js';
+const Article = require('./Article.js');
+const User = require('./User.js');
+
 // Serve the static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
 
