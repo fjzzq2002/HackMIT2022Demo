@@ -13,6 +13,7 @@ const articleSchema = new Schema({
     },
     author: String,
     time: Date,
+    type: String, 
 });
 const Article = mongoose.model('Article', articleSchema);
 module.exports = Article;

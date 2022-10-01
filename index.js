@@ -58,7 +58,7 @@ async function verifyCookie() {
 }
 
 
-async function postArticle(title, content, description) {
+async function postArticle(title, content, description, type) {
     const newId = Math.floor(Math.random() * 1000000);
     const author = req.cookies.username;
 	const article = new Article({
@@ -73,6 +73,7 @@ async function postArticle(title, content, description) {
 		},
 		author: author,
         time: new Date(),
+        type: type
 	});
 	article
 		.save()
@@ -141,7 +142,7 @@ app.get('/api/getInfo', (req, res) => {
 /**
  * ​	/api/list:
  *     List all articles
-​		Output: [{article: number, title: string, description: string, votes: {upvotes: number, downvotes: number, clicks: number}, author:string, time: date}]
+​		Output: [{article: number, title: string, description: string, votes: {upvotes: number, downvotes: number, clicks: number}, author:string, time: date, type: string}]
  */
 
 app.get("/api/list", (req, res) => {
@@ -156,6 +157,7 @@ app.get("/api/list", (req, res) => {
                 votes: article.votes,
                 author: article.author,
                 time: article.time,
+                type: article.type,            
             }
         }));
     });
@@ -163,7 +165,7 @@ app.get("/api/list", (req, res) => {
 
 /** 
  * /api/post:
-​		Input: req.query.title, req.query.content, req.query.description
+​		Input: req.query.title, req.query.content, req.query.description, req.query.type
 ​		Effect: will post the article
  */
 app.get('/api/post', async (req, res) => {
@@ -171,7 +173,7 @@ app.get('/api/post', async (req, res) => {
         res.send("Not logged in");
         return ;
     }
-    await postArticle(req.query.title, req.query.content, req.query.description);
+    await postArticle(req.query.title, req.query.content, req.query.description, req.query.type);
 });
 
 function getAccess(user, article) {
@@ -208,7 +210,7 @@ app.get('/api/buy', async (req, res) => {
 });
 // /api/fetch:
 // ​		Input: req.query.id
-// ​		Output: {article: number, title: string,  description: string, **content: string**, votes: {upvotes: number, downvotes: number, clicks: number}, author:string, time: date}
+// ​		Output: {article: number, title: string,  description: string, **content: string**, votes: {upvotes: number, downvotes: number, clicks: number}, author:string, time: date, type: string}
 
 app.get("/api/fetch", async (req, res) => {
     if (! await verifyCookie()) {
@@ -229,6 +231,7 @@ app.get("/api/fetch", async (req, res) => {
         votes: article.votes,
         author: article.author,
         time: article.time,
+        type: article.type,
     });
 });
 
