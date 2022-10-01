@@ -16,7 +16,7 @@ function UserPanel(props) {
     const listOwned=[114514];//props.listOwned;
     const listWritten=[1919810];//props.listWritten;
     return (<>
-    <div className="text-xl flex-auto px-2">
+    <div className="text-xl flex-auto p-4 rounded-lg">
     <div>
     <div className='pb-2 mb-4 border-b-2 border-dashed border-neutral-400'>
         <span className="text-2xl">

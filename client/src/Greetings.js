@@ -5,7 +5,7 @@ import './index.css';
 export default function Greetings(props) {
   return (
     <>
-      <div className="text-lg pb-4">
+      <div className="text-lg pb-2">
         {props.text}
       </div>
     </>

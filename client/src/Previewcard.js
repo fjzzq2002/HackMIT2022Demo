@@ -37,31 +37,30 @@ function Vote(props) {
   );
 }
 
-function Tag(props) {
-    let icon=<></>;
-    if(props.type=='Insight')
-        icon=<HiOutlineLightBulb className="lightbulb"/>;
-    if(props.type=='Fiction')
-        icon=<HiOutlineSparkles className="sparkle"/>;
-    if(props.type=='Life')
-        icon=<HiOutlineSun className="sun"/>;
-  return (
-    <>
-    <IconContext.Provider value={{ color: "black", className: "s1" }}>
-        {icon}
-    </IconContext.Provider>
-    </>
-  );
-}
-
 export default function Previewcard(props) {
+    let icon=<></>;
+    let className="";
+    if(props.type=='Insight') {
+        icon=<HiOutlineLightBulb className="lightbulb"/>;
+        className="redlayer";
+    }
+    if(props.type=='Fiction') {
+        icon=<HiOutlineSparkles className="sparkle"/>;
+        className="bluelayer";
+    }
+    if(props.type=='Life') {
+        icon=<HiOutlineSun className="sun"/>;
+        className="greenlayer";
+    }
   return (
     <>
-      <div className="rounded border-2 p-3 mt-4 border-neutral-300">
+      <div className={"rounded border-2 p-3 mt-4 border-neutral-300 "+className}>
         <div className="flex justify-between align-end">
         <div>
             <div className="text-2xl">
-            <Tag type={props.type}/>
+            <IconContext.Provider value={{ color: "black" }}>
+                {icon}
+            </IconContext.Provider>
             <span style={{fontWeight:"500"}} className="Rashi">
             {props.title}
             </span>

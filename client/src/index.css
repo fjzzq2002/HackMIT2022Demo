@@ -105,3 +105,21 @@ textarea:focus, input:focus{
 .ql-editor{
   min-height:500px;
 }
+
+body {
+  background-color: #FEF8EB3F !important;
+}
+
+.darkenlayer {
+  background-color: #FDF6E37F;
+}
+
+.redlayer {
+  background-color: #ff840113;
+}
+.bluelayer {
+  background-color: #4c95fb13;
+}
+.greenlayer {
+  background-color: #1be24913;
+}

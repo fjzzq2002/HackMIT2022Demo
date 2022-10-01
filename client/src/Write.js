@@ -71,7 +71,7 @@ export default function Editor() {
           key={idx}
           id={`radio-${idx}`}
           type="radio"
-          variant={['outline-danger','outline-primary','outline-success'][idx]}
+          variant={['outline-success','outline-primary','outline-danger'][idx]}
           name="radio"
           value={radio.value}
           checked={radioValue === radio.value}
