@@ -57,7 +57,7 @@ function Tag(props) {
 export default function Previewcard(props) {
   return (
     <>
-      <div className="rounded border-2 p-3 mb-3">
+      <div className="rounded border-2 p-3 mt-4 border-neutral-300">
         <div className="flex justify-between align-end">
         <div>
             <div className="text-2xl">

@@ -11,7 +11,7 @@ export default function Header() {
   return (
     <>
       <div className="">
-        <div className="flex header justify-between">
+        <div className="flex header justify-between border-neutral-200 pb-2 border-b-2 mb-3">
             <div className="logo">
                 Cleland
             </div>
@@ -21,8 +21,6 @@ export default function Header() {
             </div>
             </div>
         </div>
-        <hr/>
-        <Greetings/>
       </div>
     </>
   );

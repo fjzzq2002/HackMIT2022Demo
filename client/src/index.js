@@ -3,6 +3,9 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import Home from "./Home";
 import Header from "./Header";
+import User, {
+  loader as userLoader,
+} from "./User";
 import reportWebVitals from "./reportWebVitals";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -17,6 +20,11 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
+  },
+  {
+    path: "user/:userId",
+    element: <User />,
+    loader: userLoader
   },
 ]);
 
