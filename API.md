@@ -26,11 +26,11 @@
 
 ​		Input: None
 
-​		Output: [{article: number, title: string, description: string, votes: {upvotes: number, downvotes: number, clicks: number}, author:string, time: date}]
+​		Output: [{article: number, title: string, description: string, votes: {upvotes: number, downvotes: number, clicks: number}, author:string, time: date, type: string}]
 
 /api/post:
 
-​		Input: req.query.title, req.query.content, req.query.description
+​		Input: req.query.title, req.query.content, req.query.description, req.type
 
 ​		Effect: will post the article
 

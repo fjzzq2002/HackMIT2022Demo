@@ -1,11 +1,17 @@
 const express = require('express');
 const path = require('path');
 const CryptoJS = require("crypto-js");
+const cors = require("cors");
 
 
 const app = express();
 const cookieParser = require("cookie-parser");
 app.use(cookieParser());
+app.use(
+	cors({
+		origin: "*",
+	})
+);
 
 // import article from './article.js';
 const Article = require('./Article.js');
@@ -35,7 +41,7 @@ async function chargeUser(username, cost) {
 	user.save();
 	return true;
 }
-async function verifyCookie() {
+async function verifyCookie(req) {
     let username = req.cookies.username;
     let password = req.cookies.password;
     const user = await User.findOne({ username: username });
@@ -58,7 +64,7 @@ async function verifyCookie() {
 }
 
 
-async function postArticle(title, content, description) {
+async function postArticle(req, title, content, description, type) {
     const newId = Math.floor(Math.random() * 1000000);
     const author = req.cookies.username;
 	const article = new Article({
@@ -73,6 +79,7 @@ async function postArticle(title, content, description) {
 		},
 		author: author,
         time: new Date(),
+        type: type
 	});
 	article
 		.save()
@@ -94,8 +101,8 @@ async function fetchArticle(id) {
 app.get("/api/login", (req, res) => {
     const match = verify(req.query.username, req.query.password);
     if (match) {
-        res.cookie(`username`, res.query.username);
-        res.cookie(`password`, res.query.password);
+        res.cookie(`username`, req.query.username);
+        res.cookie(`password`, req.query.password);
         res.send("Login successful");
     }
     else 
@@ -115,7 +122,8 @@ app.get('/api/createUser', async (req, res) => {
         username: req.query.username,
         password: req.query.password,
         coins: 1,
-        articles: []
+        articles: [], 
+        lastUpdate: new Date(),
     });
     user.save().then((result) => {
         res.send("Created user successfully");
@@ -132,6 +140,7 @@ app.get('/api/createUser', async (req, res) => {
  */
 app.get('/api/getInfo', (req, res) => {
     User.findOne({username: req.query.username}).then((result) => {
+        console.log(result);
         res.send({coins: result.coins, lastUpdate: result.lastUpdate, articles: result.articles});
     }).catch((err) => {
         console.log(err);
@@ -141,7 +150,7 @@ app.get('/api/getInfo', (req, res) => {
 /**
  * ​	/api/list:
  *     List all articles
-​		Output: [{article: number, title: string, description: string, votes: {upvotes: number, downvotes: number, clicks: number}, author:string, time: date}]
+​		Output: [{article: number, title: string, description: string, votes: {upvotes: number, downvotes: number, clicks: number}, author:string, time: date, type: string}]
  */
 
 app.get("/api/list", (req, res) => {
@@ -156,6 +165,7 @@ app.get("/api/list", (req, res) => {
                 votes: article.votes,
                 author: article.author,
                 time: article.time,
+                type: article.type,            
             }
         }));
     });
@@ -163,15 +173,15 @@ app.get("/api/list", (req, res) => {
 
 /** 
  * /api/post:
-​		Input: req.query.title, req.query.content, req.query.description
+​		Input: req.query.title, req.query.content, req.query.description, req.query.type
 ​		Effect: will post the article
  */
 app.get('/api/post', async (req, res) => {
-    if (! await verifyCookie()) {
+    if (! await verifyCookie(req)) {
         res.send("Not logged in");
         return ;
     }
-    await postArticle(req.query.title, req.query.content, req.query.description);
+    await postArticle(req, req.query.title, req.query.content, req.query.description, req.query.type);
 });
 
 function getAccess(user, article) {
@@ -189,7 +199,7 @@ function haveAccess(user, article) { // user: a real user!
 ​		Input: req.query.id
 ​		Effect: will buy the article*/
 app.get('/api/buy', async (req, res) => {
-    if (! await verifyCookie()) {
+    if (! await verifyCookie(req)) {
         res.send("Not logged in");
         return ;
     }
@@ -208,10 +218,10 @@ app.get('/api/buy', async (req, res) => {
 });
 // /api/fetch:
 // ​		Input: req.query.id
-// ​		Output: {article: number, title: string,  description: string, **content: string**, votes: {upvotes: number, downvotes: number, clicks: number}, author:string, time: date}
+// ​		Output: {article: number, title: string,  description: string, **content: string**, votes: {upvotes: number, downvotes: number, clicks: number}, author:string, time: date, type: string}
 
 app.get("/api/fetch", async (req, res) => {
-    if (! await verifyCookie()) {
+    if (! await verifyCookie(req)) {
         res.send("Not logged in");
         return ;
     }
@@ -229,6 +239,7 @@ app.get("/api/fetch", async (req, res) => {
         votes: article.votes,
         author: article.author,
         time: article.time,
+        type: article.type,
     });
 });
 
@@ -237,7 +248,7 @@ app.get("/api/fetch", async (req, res) => {
 // ​		Output: Give you the access. 
 
 app.get("/api/retrieve", async (req, res) => {
-    if (! await verifyCookie()) {
+    if (! await verifyCookie(req)) {
         res.send("Not logged in");
         return ;
     }
@@ -277,7 +288,7 @@ app.get("/api/retrieve", async (req, res) => {
 ​		Input: req.query.vote: +-1, req.query.id: article to vote
  */
 app.get("/api/vote", async (req, res) => {
-    if (! await verifyCookie()) {
+    if (! await verifyCookie(req)) {
         res.send("Not logged in");
         return ;
     }
