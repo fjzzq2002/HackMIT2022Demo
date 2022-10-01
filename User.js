@@ -5,6 +5,7 @@ const userSchema = new Schema({
     username: String, 
     password: String,
     coins: Number, 
+    lastUpdate: Date,
     articles: [{article: Number, cost: Number, shared: Boolean}],
 });
 const User = mongoose.model("User", userSchema);

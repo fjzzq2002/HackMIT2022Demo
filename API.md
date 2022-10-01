@@ -10,11 +10,11 @@
 
 ​		Effect: return "username already exists" or "Created user successfully"
 
-/api/getAccess:
+/api/getInfo:
 
 ​		Input: req.query.username
 
-​		Output: [{article: Number, cost: Number, shared: Boolean}]
+​		Output: {cost: number, lastUpdate: date, [{article: Number, cost: Number, shared: Boolean}]}
 
 ​					**Article**: the id of artical
 
