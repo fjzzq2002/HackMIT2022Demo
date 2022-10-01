@@ -62,7 +62,7 @@ export default function Previewcard(props) {
         <div>
             <div className="text-2xl">
             <Tag type={props.type}/>
-            <span style={{fontWeight:"600"}}>
+            <span style={{fontWeight:"500"}} className="Rashi">
             {props.title}
             </span>
             <Vote votes={props.votes[0]-props.votes[1]}/>
@@ -72,7 +72,9 @@ export default function Previewcard(props) {
         {props.author}
         </div>
         </div>
+        <span className="text-lg ml-1">
         {props.description}
+        </span>
       </div>
     </>
   );

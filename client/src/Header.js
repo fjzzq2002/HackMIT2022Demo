@@ -12,7 +12,7 @@ export default function Header() {
     <>
       <div className="">
         <div className="flex header justify-between border-neutral-200 pb-2 border-b-2 mb-3">
-            <div className="logo">
+            <div className="logo text-neutral-800">
                 Cleland
             </div>
             <div className="relative text-right">

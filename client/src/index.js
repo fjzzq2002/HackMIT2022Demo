@@ -44,7 +44,7 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <div className="container">
-    <div className="mycontainer Lora">
+    <div className="mycontainer Nunito">
     <Header />
     <RouterProvider router={router} />
     </div>
