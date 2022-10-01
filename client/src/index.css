@@ -92,3 +92,16 @@ code {
   text-decoration: underline;
   cursor: pointer;
 }
+
+.ql-container {
+  font-size: inherit !important;
+  font-family: 'Merriweather', serif !important;
+}
+
+textarea:focus, input:focus{
+  outline: none;
+}
+
+.ql-editor{
+  min-height:500px;
+}

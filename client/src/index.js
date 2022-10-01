@@ -12,13 +12,14 @@ import Article, {
 import Write from "./Write";
 import reportWebVitals from "./reportWebVitals";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import katex from 'katex';
+import 'katex/dist/katex.min.css';
 
 import {
   createBrowserRouter,
   RouterProvider,
   Route,
 } from "react-router-dom";
-import "./index.css";
 
 const router = createBrowserRouter([
   {
