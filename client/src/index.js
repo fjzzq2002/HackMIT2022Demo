@@ -11,6 +11,7 @@ import Article, {
 import Home, {
   loader as homeLoader,
 } from "./Home";
+import Login from "./Login";
 import Write from "./Write";
 import reportWebVitals from "./reportWebVitals";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -24,25 +25,30 @@ import {
 } from "react-router-dom";
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Home />,
-    loader: homeLoader
-  },
-  {
-    path: "user/:userId",
-    element: <User />,
-    loader: userLoader
-  },
-  {
-    path: "read/:articleId",
-    element: <Article />,
-    loader: articleLoader
-  },
-  {
-    path: "write",
-    element: <Write />
-  },
+	{
+		path: "/",
+		element: <Home />,
+		loader: homeLoader,
+	},
+	{
+		path: "user/:userId",
+		element: <User />,
+		loader: userLoader,
+	},
+	{
+		path: "read/:articleId",
+		element: <Article />,
+		loader: articleLoader,
+	},
+	{
+		path: "write",
+		element: <Write />,
+	},
+
+	{
+		path: "login",
+		element: <Login />,
+	},
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

@@ -27,10 +27,9 @@ mongoose.connect(mongoURL, {useNewUrlParser: true, useUnifiedTopology: true, dbN
 async function verify(username, password) {
     const user = await User.findOne({ username: username });
     if (!user) return false;
-    if (user.password === password) 
+    if (user.password == password) 
         return true;
-    else 
-        return false;
+    return false;
 }
 
 async function chargeUser(username, cost) {
@@ -98,8 +97,9 @@ async function fetchArticle(id) {
 	return article;
 }
 
-app.get("/api/login", (req, res) => {
-    const match = verify(req.query.username, req.query.password);
+app.get("/api/login", async (req, res) => {
+    console.log(req.query.username, req.query.password);
+    const match = await verify(req.query.username, req.query.password);
     if (match) {
         res.cookie(`username`, req.query.username);
         res.cookie(`password`, req.query.password);
