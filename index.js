@@ -89,10 +89,22 @@ app.get('/api/createUser', async (req, res) => {
     });
 });
 
-// get a user
-app.get('/api/getUser', (req, res) => {
+/**
+ * /api/getInfo:
+
+​		Input: req.query.username
+
+​		Output: {cost: number, lastUpdate: date, [{article: Number, cost: Number, shared: Boolean}]}
+
+​					**Article**: the id of article
+
+​					**Cost: =1 if you bought it, =0 if it was shared with you, =-1 if it was written by you**
+
+​					**Shared: =1** **if you've shared it with others (or it was shared with you) **, =0 if haven't & cost=1
+ */
+app.get('/api/getInfo', (req, res) => {
     User.findOne({username: req.query.username}).then((result) => {
-        res.send(result);
+        res.send({coins: result.coins, lastUpdate: result.lastUpdate, articles: result.articles});
     }).catch((err) => {
         console.log(err);
     });

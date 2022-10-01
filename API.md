@@ -14,7 +14,7 @@
 
 ​		Input: req.query.username
 
-​		Output: {cost: number, lastUpdate: date, [{article: Number, cost: Number, shared: Boolean}]}
+​		Output: {coins: number, lastUpdate: date, [{article: Number, cost: Number, shared: Boolean}]}
 
 ​					**Article**: the id of artical
 
