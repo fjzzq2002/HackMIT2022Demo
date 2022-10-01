@@ -46,4 +46,16 @@
 
 ​		Output: {article: number, title: string,  description: string, **content: string**, votes: {upvotes: number, downvotes: number, clicks: number}, author:string, time: date}
 
-​		
+​	
+
+/api/retrieve: 
+
+​		Input: req.query.username (the one who gives you gift), req.query.article (article id), req.query.hash (the hash of (password+id))
+
+​		Output: Give you the access. 
+
+
+
+/api/vote:
+
+​		Input: req.query.vote: +-1, req.query.id: article to vote
