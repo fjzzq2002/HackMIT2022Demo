@@ -6,6 +6,9 @@ import Header from "./Header";
 import User, {
   loader as userLoader,
 } from "./User";
+import Article, {
+  loader as articleLoader,
+} from "./Article";
 import reportWebVitals from "./reportWebVitals";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -25,6 +28,11 @@ const router = createBrowserRouter([
     path: "user/:userId",
     element: <User />,
     loader: userLoader
+  },
+  {
+    path: "read/:articleId",
+    element: <Article />,
+    loader: articleLoader
   },
 ]);
 
