@@ -11,7 +11,8 @@ import { useNavigate } from "react-router-dom";
 
 export async function loader({params}) {
     const uid=params.articleId;
-    return {id:uid,content:'Ta ji le ta ji le! '.repeat(67)+'Haha!<br/>'.repeat(100),
+    return {id:uid,content:'Ta ji le ta ji le! '.repeat(67)+'Haha!<br/>'.repeat(100)+
+    '<img src="https://c.tenor.com/o656qFKDzeUAAAAC/rick-astley-never-gonna-give-you-up.gif"/>',
     title:'Jiuzhe?',type:'Insight',author:'toaster',access:Math.random()>0.5};
 }
 
@@ -46,7 +47,7 @@ export default function Article() {
         content=(<>
         <Greetings text={<>You don't have access to this article so far. You can&nbsp;
         
-        <span onClick={()=>unlock(articleInfo.id)} className="underline cursor-pointer">unlock it with 1 coin</span>.
+        <span onClick={()=>unlock(articleInfo.id)} className="link">unlock it with 1 coin</span>.
         
         </>}/>
         </>);
@@ -55,7 +56,7 @@ export default function Article() {
         content=<div dangerouslySetInnerHTML={{ __html: articleInfo.content }} />;
     }
     return (<>
-        <div className="text-lg px-10 pb-10">
+        <div className="text-lg px-10">
             <div className="flex flex-row justify-between pb-3">
             <div className="text-3xl">
             <Tag type={articleInfo.type}/>

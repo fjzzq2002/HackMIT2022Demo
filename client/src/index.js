@@ -9,6 +9,7 @@ import User, {
 import Article, {
   loader as articleLoader,
 } from "./Article";
+import Write from "./Write";
 import reportWebVitals from "./reportWebVitals";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
     path: "read/:articleId",
     element: <Article />,
     loader: articleLoader
+  },
+  {
+    path: "write",
+    element: <Write />
   },
 ]);
 

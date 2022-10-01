@@ -22,6 +22,7 @@ code {
 
 .mycontainer {
   margin: 10px 15px !important;
+  padding-bottom: 30px;
 }
 
 .header {
@@ -71,4 +72,9 @@ code {
   margin-bottom:5px;
   width: 28px;
   padding-right: 1px;
+}
+
+.link {
+  text-decoration: underline;
+  cursor: pointer;
 }
