@@ -5,6 +5,7 @@ import { BiCoinStack, BiBookOpen, BiPen, BiGlassesAlt } from 'react-icons/bi';
 import { BsBook, BsVectorPen, BsPen } from 'react-icons/bs';
 import { useLoaderData } from 'react-router-dom';
 import Previewcard from './Previewcard';
+import useEffect from 'react';
 
 export async function loader({params}) {
     const uid=params.userId;

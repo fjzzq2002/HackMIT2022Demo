@@ -16,16 +16,20 @@ export default function Login() {
         // md5 password
         let md5Password = CryptoJS.MD5(password + "goodeat").toString();
         const query = "?username=" + username + "&password=" + md5Password;
-        let result = await (await fetch("http://localhost:5000/api/createUser" + query)).text();
+        let result = await (await fetch("/api/createUser" + query,{
+			credentials: 'include'
+		  })).text();
         console.log(result);
         if (result.indexOf("success") != -1) {
-            setRemark("Successully registered!");
+            setRemark("Successfully registered!");
             return;
         }
-        result = await (await fetch("http://localhost:5000/api/login" + query)).text();
+        result = await (await fetch("/api/login" + query,{
+			credentials: 'include'
+		  })).text();
         console.log(result);
         if (result.indexOf("success") != -1) {
-			setRemark("Successully logged in!");
+			setRemark("Successfully logged in!");
 			return;
 		}
         console.log(result);
@@ -42,7 +46,7 @@ export default function Login() {
 				maxLength="20"
 			/>
 			<input
-				type="text"
+				type="password"
 				className="text-3xl border-b-2 border-neutral-300 p-1 Lora m-auto my-1"
 				placeholder="Password"
 				style={{ width: "50%" }}
@@ -56,9 +60,9 @@ export default function Login() {
                 size="lg"
 				style={{ width: "20%" }}
 			>
-				Submit
+				Register / Login
 			</Button>
-			<p classname="text-center" style={{color:"red"}}>{remark}</p>
+			<p className="text-center" style={{color:"red"}}>{remark}</p>
 		</div>
 	);
 }

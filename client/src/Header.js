@@ -1,13 +1,21 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './index.css';
 import Greetings from "./Greetings";
 import { BiCoinStack } from 'react-icons/bi';
-
+import { useCookies } from 'react-cookie';
 
 export default function Header() {
-  const username="daxiang";
-  const numCoins=10;
+  const [cookies, setCookie] = useCookies(['username','password']);
+  console.log(cookies);
+  setCookie('username', 'daxiang', { path: '/' });
+  const [user, setUser] = React.useState(null);
+  const [coins, setCoins] = React.useState(0);
+  useEffect(() => {
+    setTimeout(()=>{
+      console.log('refresh!');
+    },5000);
+  });
   return (
     <>
       <div className="">
@@ -16,9 +24,16 @@ export default function Header() {
                 Cleland
             </div>
             <div className="relative text-right">
-            <div className="text-right text-lg" style={{paddingTop:"10px"}}>
-                {username}&nbsp;&nbsp;{numCoins}<BiCoinStack style={{display:"inline",paddingBottom:"3px"}}/>
-            </div>
+            {
+                user?
+                <div className="text-right text-lg" style={{paddingTop:"10px"}}>
+                    {user}&nbsp;&nbsp;{coins}<BiCoinStack style={{display:"inline",paddingBottom:"3px"}}/>
+                </div>
+                :
+                <div className="text-right text-lg link" style={{paddingTop:"10px"}}>
+                    Login / Register
+                </div>
+            }
             </div>
         </div>
       </div>
