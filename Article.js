@@ -10,7 +10,7 @@ const articleSchema = new Schema({
         downvotes: Number, 
         clicks: Number
     },
-    authorId: Number
+    author: String,
 });
 const Article = mongoose.model('Article', articleSchema);
 module.exports = Article;
