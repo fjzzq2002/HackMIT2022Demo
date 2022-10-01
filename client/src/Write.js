@@ -22,7 +22,8 @@ export default function Editor() {
     const [checked, setChecked] = useState(false);
     const [radioValue, setRadioValue] = useState('1');
     const [value, setValue] = useState('');
-    console.log(value);
+    let [title, setTitle] = useState('');
+    let [summary, setSummary] = useState('');
 
     const modules = {
       toolbar: [
@@ -45,10 +46,16 @@ export default function Editor() {
         { value: 'Insight', content: <><HiOutlineLightBulb className="lightbulb"/> Insight</> },
     ];
 
+    function onClick() {
+        console.log(value);
+    }
+
     return (<>
     <div className="text-2xl pb-3 flex m-2">
     <input type="text" className="text-3xl border-b-2 border-neutral-300 p-1 Lora"
-    placeholder="Title" style={{width:"100%"}} maxLength="50"/>
+    placeholder="Title" style={{width:"100%"}} maxLength="50"
+    value={title} onChange={(t)=>setTitle(t.target.value)}
+    />
     </div>
     <ReactQuill theme="snow" value={value} onChange={setValue} modules={modules} formats={formats}
     className="px-2"/>
@@ -73,12 +80,15 @@ export default function Editor() {
         ))}
       </ButtonGroup>
     </div>
-    <div className='pt-4 text-center'>
-    I acknowledge that low-quality articles may be removed and corresponding accounts may be banned. Coins gained by boosting might be revoked.<br/><br/>
+    <div className='pt-2 text-center'>
+    Please note that low-quality articles may be removed and corresponding accounts may be banned. Coins gained by boosting might be revoked.
+    </div>
+    <div className='pt-5 text-center'>
     <div className="text-2xl pb-3 flex mx-5">
     <input type="text" className="text-xl border-b-2 border-neutral-300 p-1 Lora flex-grow mr-3"
-    placeholder="Add a short summary (150 characters max)..." maxLength="150"/>
-    <Button variant="primary">Submit</Button>
+    placeholder="Add a short summary (150 characters max)..." maxLength="150"
+    value={summary} onChange={(t)=>setSummary(t.target.value)}/>
+    <Button variant="primary" onClick={onClick}>Submit</Button>
     </div>
     </div>
     </div>
