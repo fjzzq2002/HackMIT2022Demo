@@ -9,6 +9,9 @@ const User = require('./User.js');
 
 // Serve the static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
+const mongoURL = "mongodb+srv://admin:adminadmin@cluster0.mz5u0n1.mongodb.net/?retryWrites=true&w=majority"
+const mongoose = require('mongoose');
+mongoose.connect(mongoURL, {useNewUrlParser: true, useUnifiedTopology: true, dbName: "HackMIT"}).then(() => {console.log("sucessfully connected to database")}).catch((err) => {console.log(err)});
 
 // An api endpoint that returns a short list of items
 app.get('/api/getList', (req,res) => {
