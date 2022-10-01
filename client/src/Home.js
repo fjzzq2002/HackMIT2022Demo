@@ -6,9 +6,7 @@ import { useLoaderData } from "react-router-dom";
 
 export async function loader({ params }) {
   console.log(params);
-  const articleList = await fetch("/api/list",{
-    credentials: 'include',
-  })
+  const articleList = await fetch("http://127.0.0.1:5000/api/list")
   .then((res)=>{console.log(res);return res.json()})
   .then((res) => {
     //res = res.json();

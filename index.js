@@ -10,8 +10,7 @@ const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 app.use(
 	cors({
-		origin: ["http://127.0.0.1:3000","http://127.0.0.1:3001","http://127.0.0.1:5000"],
-        credentials: true
+		origin: '*'
 	})
 );
 
@@ -322,7 +321,6 @@ app.get("/api/vote", async (req, res) => {
     user.save();
 });
 
-app.use('*', proxy('http://127.0.0.1:5000'));
 
 
 

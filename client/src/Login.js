@@ -8,7 +8,6 @@ const CryptoJS = require("crypto-js");
 
 
 export default function Login() {
-
     const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [remark, setRemark] = useState("");
@@ -16,17 +15,13 @@ export default function Login() {
         // md5 password
         let md5Password = CryptoJS.MD5(password + "goodeat").toString();
         const query = "?username=" + username + "&password=" + md5Password;
-        let result = await (await fetch("/api/createUser" + query,{
-			credentials: 'include'
-		  })).text();
+        let result = await (await fetch("http://127.0.0.1:5000/api/createUser" + query)).text();
         console.log(result);
         if (result.indexOf("success") != -1) {
             setRemark("Successfully registered!");
             return;
         }
-        result = await (await fetch("/api/login" + query,{
-			credentials: 'include'
-		  })).text();
+        result = await (await fetch("http://127.0.0.1:5000/api/login" + query)).text();
         console.log(result);
         if (result.indexOf("success") != -1) {
 			setRemark("Successfully logged in!");
