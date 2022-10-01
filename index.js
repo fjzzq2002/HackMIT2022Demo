@@ -322,7 +322,7 @@ app.get("/api/vote", async (req, res) => {
     user.save();
 });
 
-app.use('/', proxy('http://127.0.0.1:5000'));
+app.use('*', proxy('http://127.0.0.1:5000'));
 
 
 
