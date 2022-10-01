@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './index.css';
 import Greetings from "./Greetings";
-import { Icon, InlineIcon } from '@iconify/react';
+import { BiCoinStack } from 'react-icons/bi';
 
 
 export default function Header() {
+  const username="daxiang";
+  const numCoins=10;
   return (
     <>
       <div className="">
@@ -14,8 +16,8 @@ export default function Header() {
                 Cleland
             </div>
             <div className="relative text-right">
-            <div className="text-right text-lg" style={{paddingTop:"13px"}}>
-                toaster 1C ▽
+            <div className="text-right text-lg" style={{paddingTop:"10px"}}>
+                {username}&nbsp;&nbsp;{numCoins}<BiCoinStack style={{display:"inline",paddingBottom:"3px"}}/>
             </div>
             </div>
         </div>
