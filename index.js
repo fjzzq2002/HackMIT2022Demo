@@ -2,6 +2,8 @@ const express = require('express');
 const path = require('path');
 
 const app = express();
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
 
 // import article from './article.js';
 const Article = require('./Article.js');
@@ -12,6 +14,19 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 const mongoURL = "mongodb+srv://admin:adminadmin@cluster0.mz5u0n1.mongodb.net/?retryWrites=true&w=majority"
 const mongoose = require('mongoose');
 mongoose.connect(mongoURL, {useNewUrlParser: true, useUnifiedTopology: true, dbName: "HackMIT"}).then(() => {console.log("sucessfully connected to database")}).catch((err) => {console.log(err)});
+
+async function verify(username, password) {
+    const user = await User.findOne({ username: username });
+    if (user && user.password === password) 
+        return true;
+    else 
+        return false;
+}
+async function verifyCookie() {
+    let username = req.cookies.username;
+    let password = req.cookies.password;
+    return verify(username, password);
+}
 
 async function postArticle(title, content, author) {
 	const article = new Article({
@@ -40,6 +55,16 @@ async function fetchArticle(id) {
 	const article = await Article.findOne({ id: id });
 	return article;
 }
+app.get("/api/login", (req, res) => {
+    const match = verify(req.query.username, req.query.password);
+    if (match) {
+        res.cookie(`username`, res.query.username);
+        res.cookie(`password`, res.query.password);
+        res.send("Login successful");
+    }
+    else 
+        res.send("Login failed");
+});
 // create a user
 
 app.get('/api/createUser', async (req, res) => {
@@ -57,8 +82,9 @@ app.get('/api/createUser', async (req, res) => {
         articles: []
     });
     user.save().then((result) => {
-        res.send(result);
+        res.send("Created user successfully");
     }).catch((err) => {
+        res.send("Failed to create user");
         console.log(err);
     });
 });
@@ -72,12 +98,6 @@ app.get('/api/getUser', (req, res) => {
     });
 });
 
-// An api endpoint that returns a short list of items
-app.get('/api/getList', (req,res) => {
-    var list = ["item1", "item2", "item3"];
-    res.json(list);
-    console.log('Sent list of items');
-});
 
 // Handles any requests that don't match the ones above
 app.get('*', (req,res) =>{

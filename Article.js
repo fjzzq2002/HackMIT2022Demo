@@ -11,6 +11,7 @@ const articleSchema = new Schema({
         clicks: Number
     },
     author: String,
+    time: Date,
 });
 const Article = mongoose.model('Article', articleSchema);
 module.exports = Article;
