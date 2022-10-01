@@ -10,11 +10,11 @@
 
 ​		Effect: return "username already exists" or "Created user successfully"
 
-/api/getAccess:
+/api/getInfo:
 
-​		Input: None
+​		Input: req.query.username
 
-​		Output: [{article: Number, cost: Number, shared: Boolean}]
+​		Output: {coins: number, lastUpdate: date, articles: [{article: Number, cost: Number, shared: Boolean}]}
 
 ​					**Article**: the id of artical
 
@@ -30,7 +30,7 @@
 
 /api/post:
 
-​		Input: req.query.title, req.query.content
+​		Input: req.query.title, req.query.content, req.query.description
 
 ​		Effect: will post the article
 
