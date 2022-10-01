@@ -5,6 +5,7 @@ const articleSchema = new Schema({
     id: Number, 
     title: String,
     content: String,
+    description: String,
     votes: {
         upvotes: Number,
         downvotes: Number, 

@@ -55,6 +55,7 @@ async function fetchArticle(id) {
 	const article = await Article.findOne({ id: id });
 	return article;
 }
+
 app.get("/api/login", (req, res) => {
     const match = verify(req.query.username, req.query.password);
     if (match) {
@@ -91,9 +92,7 @@ app.get('/api/createUser', async (req, res) => {
 
 /**
  * /api/getInfo:
-
 ​		Input: req.query.username
-
 ​		Output: {cost: number, lastUpdate: date, articles: [{article: Number, cost: Number, shared: Boolean}]}
  */
 app.get('/api/getInfo', (req, res) => {
@@ -103,6 +102,37 @@ app.get('/api/getInfo', (req, res) => {
         console.log(err);
     });
 });
+
+/**
+ * ​	/api/list:
+ *     List all articles
+​		Output: [{article: number, title: string, description: string, votes: {upvotes: number, downvotes: number, clicks: number}, author:string, time: date}]
+ */
+
+app.get("/api/list", (req, res) => {
+    // find all articles
+    Article.find().then((result) => {
+        // for each, remove the content
+        res.send(result.map((article) => {
+            return {
+                article: article.id,
+                title: article.title,
+                description: article.description, 
+                votes: article.votes,
+                author: article.author,
+                time: article.time,
+            }
+        }));
+    });
+});
+
+/** 
+ * /api/post:
+​		Input: req.query.title, req.query.content, req.query.description
+​		Effect: will post the article
+ */
+app.get()
+
 
 
 // Handles any requests that don't match the ones above

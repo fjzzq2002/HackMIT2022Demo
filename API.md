@@ -30,7 +30,7 @@
 
 /api/post:
 
-​		Input: req.query.title, req.query.content
+​		Input: req.query.title, req.query.content, req.query.description
 
 ​		Effect: will post the article
 
