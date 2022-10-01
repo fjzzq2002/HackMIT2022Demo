@@ -12,7 +12,7 @@
 
 /api/getAccess:
 
-​		Input: None
+​		Input: req.query.username
 
 ​		Output: [{article: Number, cost: Number, shared: Boolean}]
 
