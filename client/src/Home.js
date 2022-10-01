@@ -5,8 +5,11 @@ import Previewcard from "./Previewcard";
 import { useLoaderData } from "react-router-dom";
 
 export async function loader({ params }) {
-  const articleList = await fetch("/api/list").then((res) =>
-		res.map((x) => (
+  const articleList = await fetch("/api/list")
+  .then((res)=>res.text())
+  .then((res) => {
+    console.log(res.text);
+		return res.map((x) => (
 			<Previewcard
 				title={x.title}
 				author={x.author}
@@ -14,8 +17,8 @@ export async function loader({ params }) {
 				votes={[x.votes.upvotes, x.votes.downvotes]}
 				description={x.description}
 			/>
-		))
-  );
+		));
+  });
   return articleList;
 }
 export default function Home() {
