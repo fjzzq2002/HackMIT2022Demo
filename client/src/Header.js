@@ -8,7 +8,6 @@ import { useCookies } from 'react-cookie';
 export default function Header() {
   const [cookies, setCookie] = useCookies(['username','password']);
   console.log(cookies);
-  setCookie('username', 'daxiang', { path: '/' });
   const [user, setUser] = React.useState(null);
   const [coins, setCoins] = React.useState(0);
   useEffect(() => {
