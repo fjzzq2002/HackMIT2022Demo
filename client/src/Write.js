@@ -47,7 +47,7 @@ export default function Editor() {
     ];
 
     function onClick() {
-        console.log(value);
+        console.log(value,title,summary);
     }
 
     return (<>
@@ -60,36 +60,29 @@ export default function Editor() {
     <ReactQuill theme="snow" value={value} onChange={setValue} modules={modules} formats={formats}
     className="px-2"/>
     <div className="m-2">
-    <div className='flex p-2 pt-4 justify-center'>
-    <div className="pr-3 text-xl pt-1">Pick a category... </div>
-    
-      <ButtonGroup>
-        {radios.map((radio, idx) => (
-          <ToggleButton
-            key={idx}
-            id={`radio-${idx}`}
-            type="radio"
-            variant={['outline-danger','outline-primary','outline-success'][idx]}
-            name="radio"
-            value={radio.value}
-            checked={radioValue === radio.value}
-            onChange={(e) => setRadioValue(e.currentTarget.value)}
-          >
-            {radio.content}
-          </ToggleButton>
-        ))}
-      </ButtonGroup>
-    </div>
-    <div className='pt-2 text-center'>
-    Please note that low-quality articles may be removed and corresponding accounts may be banned. Coins gained by boosting might be revoked.
-    </div>
-    <div className='pt-5 text-center'>
-    <div className="text-2xl pb-3 flex mx-5">
-    <input type="text" className="text-xl border-b-2 border-neutral-300 p-1 Lora flex-grow mr-3"
-    placeholder="Add a short summary (150 characters max)..." maxLength="150"
+    <div className='pt-6 text-center'>
+    <div className="text-xl pb-3 flex mx-1">
+    <input type="text" className="border-b-2 border-neutral-300 p-1 Lora flex-grow mr-2"
+    placeholder="Add a short summary (100 characters max)..." maxLength="100"
     value={summary} onChange={(t)=>setSummary(t.target.value)}/>
-    <Button variant="primary" onClick={onClick}>Submit</Button>
+    <ButtonGroup>
+      {radios.map((radio, idx) => (
+        <ToggleButton
+          key={idx}
+          id={`radio-${idx}`}
+          type="radio"
+          variant={['outline-danger','outline-primary','outline-success'][idx]}
+          name="radio"
+          value={radio.value}
+          checked={radioValue === radio.value}
+          onChange={(e) => setRadioValue(e.currentTarget.value)}
+        >
+          {radio.content}
+        </ToggleButton>
+      ))}
+    </ButtonGroup>
     </div>
+    <Button variant="primary" onClick={onClick} size="lg" className="mt-2">Post Article!</Button>
     </div>
     </div>
     </>);
