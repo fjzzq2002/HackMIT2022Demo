@@ -22,13 +22,39 @@ async function verify(username, password) {
     else 
         return false;
 }
+
+async function chargeUser(username, cost) {
+	const user = await User.findOne({ username: username });
+    if (!user) return false;
+	if (user.coins < cost) return false;
+	user.coins -= cost;
+	user.save();
+	return true;
+}
 async function verifyCookie() {
     let username = req.cookies.username;
     let password = req.cookies.password;
-    return verify(username, password);
+    const user = await User.findOne({ username: username });
+    if (!user) return false;
+    if (user.password === password) {
+        // get date
+        let date = new Date();
+        let lastUpdate = user.lastUpdate;
+        let sameDay = false;
+        if (date.getDate() === lastUpdate.getDate() && date.getMonth() === lastUpdate.getMonth() && date.getFullYear() === lastUpdate.getFullYear()) 
+            sameDay = true;
+        if (!sameDay) {
+            user.coins += 1;
+            user.lastUpdate = date;
+            user.save();
+        }
+        return true;
+    }
+    else return false;
 }
 
-async function postArticle(title, content, author) {
+
+async function postArticle(title, content, description) {
 	const article = new Article({
 		id: Math.floor(Math.random() * 1000000),
 		title: title,
@@ -131,9 +157,71 @@ app.get("/api/list", (req, res) => {
 ​		Input: req.query.title, req.query.content, req.query.description
 ​		Effect: will post the article
  */
-app.get()
+app.get('/api/post', async (req, res) => {
+    if (! await verifyCookie()) {
+        res.send("Not logged in");
+        return ;
+    }
+    await postArticle(req.query.title, req.query.content, req.query.description);
+});
+
+function haveAccess(user, article) { // user: a real user!
+    for (history of user.articles) 
+        if (history.article === article.id) 
+            return true;
+    return false;
+}
+
+/** /api/buy:
+​		Input: req.query.id
+​		Effect: will buy the article*/
+app.get('/api/buy', async (req, res) => {
+    if (! await verifyCookie()) {
+        res.send("Not logged in");
+        return ;
+    }
+    let user = await User.findOne({username: req.cookies.username});
+    if (haveAccess(user, req.query.id)) {
+        res.send("You already have access to this article");
+        return ;
+    }
+    if (! await chargeUser(req.cookies.username, 1)) {
+        res.send("Not enough coins");
+        return ;
+    }
+    // append the new article
+    user.articles.push({article: req.query.id, cost: 1, shared: false});
+    user.save();
+});
+// /api/fetch:
+// ​		Input: req.query.id
+// ​		Output: {article: number, title: string,  description: string, **content: string**, votes: {upvotes: number, downvotes: number, clicks: number}, author:string, time: date}
+
+app.get("/api/fetch", async (req, res) => {
+    if (! await verifyCookie()) {
+        res.send("Not logged in");
+        return ;
+    }
+    let user = await User.findOne({username: req.cookies.username});
+    if (! haveAccess(user, req.query.id)) {
+        res.send("You don't have access to this article");
+        return ;
+    }
+    let article = await fetchArticle(req.query.id);
+    res.send({
+        article: article.id,
+        title: article.title,
+        description: article.description,
+        content: article.content,
+        votes: article.votes,
+        author: article.author,
+        time: article.time,
+    });
+});
 
 
+
+/** /api/share: */
 
 // Handles any requests that don't match the ones above
 app.get('*', (req,res) =>{
