@@ -1,11 +1,17 @@
 const express = require('express');
 const path = require('path');
 const CryptoJS = require("crypto-js");
+const cors = require("cors");
 
 
 const app = express();
 const cookieParser = require("cookie-parser");
 app.use(cookieParser());
+app.use(
+	cors({
+		origin: "*",
+	})
+);
 
 // import article from './article.js';
 const Article = require('./Article.js');

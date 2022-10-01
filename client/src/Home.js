@@ -5,10 +5,12 @@ import Previewcard from "./Previewcard";
 import { useLoaderData } from "react-router-dom";
 
 export async function loader({ params }) {
-  const articleList = await fetch("/api/list")
-  .then((res)=>res.text())
+  console.log(params);
+  const articleList = await fetch("http://localhost:5000/api/list")
+  .then((res)=>{console.log(res);return res.json()})
   .then((res) => {
-    console.log(res.text);
+    //res = res.json();
+    console.log(res)
 		return res.map((x) => (
 			<Previewcard
 				title={x.title}
