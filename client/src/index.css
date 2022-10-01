@@ -115,11 +115,20 @@ body {
 }
 
 .redlayer {
-  background-color: #ff840113;
+  background-color: #ff84010a;
 }
 .bluelayer {
-  background-color: #4c95fb13;
+  background-color: #4c95fb0a;
 }
 .greenlayer {
-  background-color: #1be24913;
+  background-color: #1be2490a;
+}
+
+input[type="text"]
+{
+    background: transparent;
+}
+input[type="password"]
+{
+    background: transparent;
 }

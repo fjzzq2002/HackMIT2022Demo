@@ -5,13 +5,16 @@ const cors = require("cors");
 
 
 const app = express();
+var proxy = require('express-http-proxy');
 const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 app.use(
 	cors({
-		origin: "*",
+		origin: ["http://127.0.0.1:3000","http://127.0.0.1:3001","http://127.0.0.1:5000"],
+        credentials: true
 	})
 );
+
 
 // import article from './article.js';
 const Article = require('./Article.js');
@@ -43,6 +46,7 @@ async function chargeUser(username, cost) {
 async function verifyCookie(req) {
     let username = req.cookies.username;
     let password = req.cookies.password;
+    console.log(username, '|', password);
     const user = await User.findOne({ username: username });
     if (!user) return false;
     if (user.password === password) {
@@ -318,6 +322,7 @@ app.get("/api/vote", async (req, res) => {
     user.save();
 });
 
+app.use('/', proxy('http://127.0.0.1:5000'));
 
 
 
@@ -327,6 +332,7 @@ app.get("/api/vote", async (req, res) => {
 app.get('*', (req,res) =>{
     res.sendFile(path.join(__dirname+'/client/build/index.html'));
 });
+
 
 const port = process.env.PORT || 5000;
 app.listen(port);
