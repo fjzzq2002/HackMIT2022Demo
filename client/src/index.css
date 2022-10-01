@@ -2,7 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Handlee&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Playfair+Display:wght@400;500;600&display=swap');
+
 
 
 body {
@@ -34,26 +35,40 @@ code {
 
 .logo {
   font-size: 30px;
+  font-family: 'Lora', serif;
+  font-weight: 600;
 }
 
 .lightbulb path {
-  stroke-width: 1.4px !important;
+  stroke-width: 2px !important;
 }
 .lightbulb {
-  font-size: 21px;
+  font-size: 24px;
+  display:inline;
+  margin-bottom:5px;
+  width: 28px;
+  padding-right: 1px;
 }
 
 .sun path {
-  stroke-width: 1.6px !important;
+  stroke-width: 2.3px !important;
 }
 .sun {
-  font-size: 21px;
+  font-size: 24px;
+  display:inline;
+  margin-bottom:5px;
+  width: 28px;
+  padding-right: 1px;
 }
 
 .sparkle path {
-  stroke-width: 1.3px !important;
+  stroke-width: 1.6px !important;
 }
 
 .sparkle {
-  font-size: 20px;
+  font-size: 24px;
+  display:inline;
+  margin-bottom:5px;
+  width: 28px;
+  padding-right: 1px;
 }

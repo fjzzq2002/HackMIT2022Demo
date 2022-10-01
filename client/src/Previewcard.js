@@ -6,6 +6,7 @@ import { HiOutlineLightBulb, HiOutlineSparkles, HiOutlineSun, HiOutlineMoon } fr
 import { BsMoonStars } from 'react-icons/bs';
 import {IoSparklesOutline} from 'react-icons/io5';
 
+/*
 function Vote(props) {
     let vote=props.votes;
     let color='rgb(15,15,15)';
@@ -22,16 +23,28 @@ function Vote(props) {
     <span style={{color:color}}>{vote}</span>
     </>
   );
+}*/
+function Vote(props) {
+    let vote=props.votes;
+    let color='rgb(15,15,15)';
+    if(vote>=0) vote='+'+vote;
+    if(vote>0) color='green';
+    else if(vote<0) color='brown';
+  return (
+    <>
+    <span style={{color:color,fontSize:"20px",marginLeft:"5px"}}>({vote})</span>
+    </>
+  );
 }
 
 function Tag(props) {
     let icon=<></>;
     if(props.type=='Insight')
-        icon=<div className="lightbulb"><HiOutlineLightBulb/></div>;
+        icon=<HiOutlineLightBulb className="lightbulb"/>;
     if(props.type=='Fiction')
-        icon=<div className="sparkle"><HiOutlineSparkles/></div>;
+        icon=<HiOutlineSparkles className="sparkle"/>;
     if(props.type=='Life')
-        icon=<div className="sun"><HiOutlineSun/></div>;
+        icon=<HiOutlineSun className="sun"/>;
   return (
     <>
     <IconContext.Provider value={{ color: "black", className: "s1" }}>
@@ -45,21 +58,18 @@ export default function Previewcard(props) {
   return (
     <>
       <div className="rounded border-2 p-3 mb-3">
-        <div className="flex justify-between pb-1 align-end">
+        <div className="flex justify-between align-end">
         <div>
-            <div className="text-2xl font-bold">
+            <div className="text-2xl">
             <Tag type={props.type}/>
-            
+            <span style={{fontWeight:"600"}}>
             {props.title}
-            
+            </span>
+            <Vote votes={props.votes[0]-props.votes[1]}/>
             </div>
-        
         </div>
         <div className="text-right">
-        {props.author}<br/>
-        <Vote votes={props.votes[0]} type="up"/>
-        <span className="pl-0.5 pr-0.5" style={{color:"rgb(100,100,100)"}}>/</span>
-        <Vote votes={props.votes[1]} type="down"/>
+        {props.author}
         </div>
         </div>
         {props.description}
