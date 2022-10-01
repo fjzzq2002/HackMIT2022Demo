@@ -32,27 +32,33 @@ export default function Login() {
         setRemark("Invalid username or password!");
     }
     return (
-		<>
+		<div className="flex justify-center align-between flex-column text-center">
 			<input
 				type="text"
-				className="text-3xl border-b-2 border-neutral-300 p-1 Lora"
+				className="text-3xl border-b-2 border-neutral-300 p-1 Lora m-auto my-3"
 				placeholder="Username"
-				style={{ width: "100%" }}
+				style={{ width: "50%" }}
 				onChange={(t) => setUsername(t.target.value)}
 				maxLength="20"
 			/>
 			<input
 				type="text"
-				className="text-3xl border-b-2 border-neutral-300 p-1 Lora"
+				className="text-3xl border-b-2 border-neutral-300 p-1 Lora m-auto my-1"
 				placeholder="Password"
-				style={{ width: "100%" }}
+				style={{ width: "50%" }}
 				onChange={(t) => setPassword(t.target.value)}
 				maxLength="20"
 			/>
-			<Button variant="primary" onClick={login}>
+			<Button
+				variant="outline-primary"
+				onClick={login}
+				className="m-auto mt-5 mb-4"
+                size="lg"
+				style={{ width: "20%" }}
+			>
 				Submit
 			</Button>
-			<p>{remark}</p>
-		</>
+			<p classname="text-center" style={{color:"red"}}>{remark}</p>
+		</div>
 	);
 }
