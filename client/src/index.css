@@ -120,11 +120,28 @@ body {
 .redlayer {
   background-color: #ff84010a;
 }
+.redlayer:hover {
+  background-color: #ff84011a;
+}
 .bluelayer {
   background-color: #4c95fb0a;
 }
+.bluelayer:hover {
+  background-color: #4c95fb1a;
+}
 .greenlayer {
-  background-color: #1be2490a;
+  background-color: #62e0800a;
+}
+.greenlayer:hover {
+  background-color: #62e0801a;
+}
+.mycard {
+  transition: 0s;
+}
+.mycard:hover {
+  /*border color transition animation*/
+  border-color: rgb(180,180,180);
+  transition: 0.5s;
 }
 
 input[type="text"]
