@@ -173,7 +173,7 @@ app.get("/api/list", (req, res) => {
                 votes: article.votes,
                 author: article.author,
                 time: article.time,
-                type: article.type,            
+                type: article.type,
             }
         }));
     });
@@ -239,19 +239,24 @@ app.get('/api/buy', async (req, res) => {
 
 app.get("/api/fetch", async (req, res) => {
     console.log("FETCH", req.query);
-    if (! await verifyCookie(req)) {
-        res.send("Not logged in");
-        console.log("NOT LOGGED IN");
-        return ;
-    }
-    let user = await User.findOne({username: req.query.loginname});
-    if (! haveAccess(user, req.query.id)) {
-        res.send("You don't have access to this article");
-        console.log("NO access");
-        return ;
-    }
     let article = await fetchArticle(req.query.id);
-    console.log("success");
+    if(article==null) {
+        res.send({
+            reason: "Article not found.",
+        });
+        return ;
+    }
+    let reason='';
+    if (! await verifyCookie(req)) {
+        reason="Not logged in.";
+    }
+    else {
+        let user = await User.findOne({username: req.query.loginname});
+        if (! haveAccess(user, req.query.id)) {
+            reason="You don't have access to this article.";
+        }
+    }
+    if(reason!='') article.content='';
     res.send({
         article: article.id,
         title: article.title,
@@ -261,6 +266,7 @@ app.get("/api/fetch", async (req, res) => {
         author: article.author,
         time: article.time,
         type: article.type,
+        reason: reason,
     });
 });
 
