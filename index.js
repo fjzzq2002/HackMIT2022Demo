@@ -14,6 +14,7 @@ app.use(
 	})
 );
 
+app.use(express.json());
 
 // import article from './article.js';
 const Article = require('./Article.js');
@@ -43,6 +44,7 @@ async function chargeUser(username, cost) {
 	return true;
 }
 async function verifyCookie(req) {
+    console.log(req.query);
     //console.log(req);
     let username = req.query.loginname;
     let password = req.query.password;
@@ -184,6 +186,10 @@ app.get("/api/list", (req, res) => {
 ​		Effect: will post the article
  */
 app.post('/api/post', async (req, res) => {
+
+    // get body of request
+    const title = req.body.title;
+    console.log(req.body);
     if (! await verifyCookie(req)) {
         res.send("Not logged in");
         return ;
