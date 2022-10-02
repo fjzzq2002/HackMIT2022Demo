@@ -34,7 +34,7 @@ code {
   box-shadow: 2px 2px #888888;*/
 }
 
-.Lora, .logo {
+.Lora {
   font-family: 'Lora', serif;
 }
 
@@ -52,6 +52,7 @@ code {
 
 .Rashi {
   font-family: 'Noto Rashi Hebrew', serif;
+  letter-spacing: 0.2px;
 }
 
 .logo {
@@ -107,6 +108,7 @@ code {
 .ql-container {
   font-size: inherit !important;
   font-family: 'Merriweather', serif !important;
+  letter-spacing: 0.2px;
 }
 
 textarea:focus, input:focus{
