@@ -8,12 +8,24 @@ import Previewcard from './Previewcard';
 import { IconContext } from "react-icons";
 import { HiOutlineLightBulb, HiOutlineSparkles, HiOutlineSun, HiOutlineMoon } from 'react-icons/hi';
 import { useNavigate } from "react-router-dom";
+import {cfetch} from './cookiefetch';
 
 export async function loader({params}) {
     const uid=params.articleId;
-    return {id:uid,content:'Ta ji le ta ji le! '.repeat(67)+'Haha!<br/>'.repeat(100)+
-    '<img src="https://c.tenor.com/o656qFKDzeUAAAAC/rick-astley-never-gonna-give-you-up.gif"/>',
-    title:'Jiuzhe?',type:'Insight',author:'toaster',access:Math.random()>0.5};
+    const response = await cfetch(
+		"http://localhost:5000/api/fetch?id=" + uid
+	);
+    let data;
+    try {
+        data = await response.json();
+        console.log(data);
+        if (data.article === undefined) 
+            throw("No article found");
+    } catch (error) {
+        console.log(error);
+        return {id:uid, access:false};
+    }
+    return {id:uid,content:data.content,title:data.title,type:data.type,author:data.author,access:true};
 }
 
 function Tag(props) {
@@ -37,8 +49,12 @@ export default function Article() {
     const articleInfo=useLoaderData();
     const navigate = useNavigate();
 
-    function unlock(id) {
+    async function unlock(id) {
         console.log('unlock',id);
+        const data = await cfetch('http://localhost:5000/api/buy?id='+id);
+        console.log(data.text());
+        //data = await data.text();
+        //if (data.indexOf('success') !== -1) {
         document.location=('/read/'+id);
     }
 
