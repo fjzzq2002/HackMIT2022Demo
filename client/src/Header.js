@@ -28,11 +28,9 @@ export default function Header() {
       setCoins(0);
     }
     else {
-      console.log('rfun');
-      const articleList = await cfetch(url + "/api/getInfo?username="+un)
+      await cfetch(url + "/api/getInfo?username="+un)
       .then((res)=>{return res.json()})
       .then((res) => {
-        console.log('EZ');
         setCoins(res.coins);
       });
     }

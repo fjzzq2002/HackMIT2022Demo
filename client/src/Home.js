@@ -13,7 +13,7 @@ export async function loader({ params }) {
   .then((res) => {
     //res = res.json();
     console.log(res)
-		return res.map((x) => (
+		return res.reverse().map((x) => (
 			<Previewcard
 				title={x.title}
 				author={x.author}
