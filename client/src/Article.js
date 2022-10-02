@@ -214,12 +214,12 @@ Arcu cursus vitae congue mauris rhoncus aenean vel elit. Risus viverra adipiscin
 									onClick={() => {
 										console.log("share");
 										navigator.clipboard.writeText(
-											url +
-												"/api/retrieve?username=" +
+											document.location.protocol + '//' + document.location.host +
+												"/retrieve/" +
 												new Cookies().get("username") +
-												"&article=" +
+												"/" +
 												articleInfo.id +
-												"&hash=" +
+												"/" +
 												CryptoJS.MD5(
 													new Cookies().get(
 														"password"

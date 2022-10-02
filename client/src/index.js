@@ -11,6 +11,9 @@ import Article, {
 import Home, {
   loader as homeLoader,
 } from "./Home";
+import Shared, {
+	  loader as sharedLoader,
+} from "./sharedlink";
 import Login from "./Login";
 import Write from "./Write";
 import reportWebVitals from "./reportWebVitals";
@@ -48,6 +51,11 @@ const router = createBrowserRouter([
 	{
 		path: "login",
 		element: <Login />,
+	},
+	{
+		path: "retrieve/:username/:article/:hash",
+		element: <Shared />,
+		loader: sharedLoader,
 	},
 ]);
 

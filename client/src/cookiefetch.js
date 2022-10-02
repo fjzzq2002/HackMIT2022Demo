@@ -5,6 +5,7 @@ import Greetings from "./Greetings";
 import { BiCoinStack } from "react-icons/bi";
 import Cookies from "universal-cookie";
 export function cfetch(url) {
+    console.log("cfetch " + url);
     const cookies = new Cookies();
     let mid = "&",
         suffix = "loginname=" + cookies.get("username") +
