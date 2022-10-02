@@ -43,11 +43,9 @@ async function chargeUser(username, cost) {
 	return true;
 }
 async function verifyCookie(req) {
-    console.log(req.query);
     //console.log(req);
     let username = req.query.loginname;
     let password = req.query.password;
-    console.log(username, '|', password);
     const user = await User.findOne({ username: username });
     if (!user) return false;
     if (user.password === password) {
@@ -95,6 +93,7 @@ async function postArticle(req, title, content, description, type) {
 		});
     const user = await User.findOne({ username: author });
     user.articles.push({article: newId, cost: -1, shared: true});
+    user.save();
 }
 
 async function fetchArticle(id) {
@@ -103,7 +102,6 @@ async function fetchArticle(id) {
 }
 
 app.get("/api/login", async (req, res) => {
-    console.log(req.query.username, req.query.password);
     const match = await verify(req.query.username, req.query.password);
     if (match) {
         res.cookie(`username`, req.query.username);
@@ -188,19 +186,17 @@ app.post('/api/post', async (req, res) => {
 
     // get body of request
     const title = req.body.title;
-    console.log(req.body);
     if (! await verifyCookie(req)) {
         res.send("Not logged in");
         return ;
     }
     const result = req.body;
-    console.log(result);
     await postArticle(req, result.title, result.content, result.description, result.type);
 });
 
 function getAccess(user, article) {
     for (history of user.articles)
-		if (history.article === article.id) 
+		if (history.article == article) 
             return history;
     return null;
 }
@@ -218,33 +214,42 @@ app.get('/api/buy', async (req, res) => {
         return ;
     }
     let user = await User.findOne({username: req.query.loginname});
+    console.log("NOW ");
     if (haveAccess(user, req.query.id)) {
         res.send("You already have access to this article");
         return ;
     }
     if (! await chargeUser(req.query.loginname, 1)) {
         res.send("Not enough coins");
+        console.log("money ");
         return ;
     }
+
+    console.log("Bought ");
     // append the new article
     user.articles.push({article: req.query.id, cost: 1, shared: false});
     user.save();
+    res.send('successully bought');
 });
 // /api/fetch:
 // ​		Input: req.query.id
 // ​		Output: {article: number, title: string,  description: string, **content: string**, votes: {upvotes: number, downvotes: number, clicks: number}, author:string, time: date, type: string}
 
 app.get("/api/fetch", async (req, res) => {
+    console.log("FETCH", req.query);
     if (! await verifyCookie(req)) {
         res.send("Not logged in");
+        console.log("NOT LOGGED IN");
         return ;
     }
     let user = await User.findOne({username: req.query.loginname});
     if (! haveAccess(user, req.query.id)) {
         res.send("You don't have access to this article");
+        console.log("NO access");
         return ;
     }
     let article = await fetchArticle(req.query.id);
+    console.log("success");
     res.send({
         article: article.id,
         title: article.title,
