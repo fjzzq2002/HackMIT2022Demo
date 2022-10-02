@@ -136,12 +136,13 @@ body {
   background-color: #62e0801a;
 }
 .mycard {
-  transition: 0s;
+  transition: 0.2s;
 }
 .mycard:hover {
   /*border color transition animation*/
+  transform: translate(-15px, 0px);
   border-color: rgb(180,180,180);
-  transition: 0.5s;
+  transition: 0.6s;
 }
 
 input[type="text"]
