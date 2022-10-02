@@ -290,7 +290,7 @@ app.get("/api/retrieve", async (req, res) => {
         return ;
     }
     let id = req.query.article;
-    if (CryptoJS.MD5(user.password + id) !== req.query.hash) {
+    if (CryptoJS.MD5(user.password + id) != req.query.hash) {
 		res.send("Wrong hash");
 		return;
 	}

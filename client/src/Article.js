@@ -15,25 +15,28 @@ import ReportIcon from '@mui/icons-material/Report';
 import SendIcon from '@mui/icons-material/Send';
 import {url} from './url';
 import {artinfo} from './artinfo';
+import Cookies from "universal-cookie";
+import Tooltip from '@mui/material/Tooltip';
+import CryptoJS from 'crypto-js';
 
 export async function loader({params}) {
     const uid=params.articleId;
     const response = await cfetch(
 		url + "/api/fetch?id=" + uid
 	);
-    let reason='';
     let data;
     try {
         data = await response.json();
         console.log(data);
-        reason=data.reason+'';
+        if (data.article === undefined) 
+            throw("No article found");
     } catch (error) {
-        if(reason=='') reason='Unknown error';
+        console.log(error);
+        return {id:uid, access:false};
     }
     const info = await artinfo(uid);
     console.log(info);
-    return {id:uid,content:data.content,title:data.title,type:data.type,
-        author:data.author,access:reason=='',reason:reason,info:info};
+    return {id:uid,content:data.content,title:data.title,type:data.type,author:data.author,access:true, info:info};
 }
 
 function Tag(props) {
@@ -57,6 +60,9 @@ export default function Article() {
     const articleInfo=useLoaderData();
     const navigate = useNavigate();
     const [refresh, setRefresh] = React.useState(13123);
+    const [shared, setShared] = React.useState(false);
+    const [reported, setReported] = React.useState(false);
+
 
     async function unlock(id) {
         console.log('unlock',id);
@@ -91,28 +97,14 @@ export default function Article() {
         return -1;
     };
 
-
-    console.log(articleInfo);
     let content=<></>;
     if(!articleInfo.access) {
         content=(<>
-        <div style={{position:"relative"}}>
-        <div style={{filter:"blur(3px)",opacity:"0.2"}} className="noselect">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae sapien pellentesque habitant morbi tristique senectus et. Fringilla est ullamcorper eget nulla facilisi. Neque aliquam vestibulum morbi blandit cursus risus at ultrices mi. Ultricies integer quis auctor elit sed vulputate. Pretium lectus quam id leo in vitae turpis massa sed. Quis imperdiet massa tincidunt nunc pulvinar sapien et. Congue quisque egestas diam in arcu cursus euismod quis. Commodo viverra maecenas accumsan lacus vel facilisis volutpat est velit. Magna fermentum iaculis eu non diam phasellus vestibulum lorem. Faucibus scelerisque eleifend donec pretium. Odio facilisis mauris sit amet. Aliquam sem et tortor consequat id. Nec sagittis aliquam malesuada bibendum. Etiam tempor orci eu lobortis elementum nibh. Nulla posuere sollicitudin aliquam ultrices sagittis orci a. Tortor at risus viverra adipiscing. Turpis tincidunt id aliquet risus feugiat in ante metus. Suspendisse potenti nullam ac tortor vitae purus faucibus ornare suspendisse.<br/>
-Posuere morbi leo urna molestie at. Tellus orci ac auctor augue mauris augue. Tristique nulla aliquet enim tortor at auctor urna. Non quam lacus suspendisse faucibus interdum posuere lorem ipsum. Nunc sed augue lacus viverra vitae. Egestas sed tempus urna et pharetra. Interdum posuere lorem ipsum dolor sit. Dictum at tempor commodo ullamcorper a lacus vestibulum sed. Sem et tortor consequat id porta nibh. Commodo quis imperdiet massa tincidunt nunc pulvinar sapien. At imperdiet dui accumsan sit amet.<br/>
-Arcu cursus vitae congue mauris rhoncus aenean vel elit. Risus viverra adipiscing at in. In cursus turpis massa tincidunt dui ut ornare lectus sit. Sagittis eu volutpat odio facilisis mauris sit. Sed viverra ipsum nunc aliquet bibendum. Sed libero enim sed faucibus turpis. In pellentesque massa placerat duis. Mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Quam id leo in vitae turpis massa sed elementum. Diam vulputate ut pharetra sit amet aliquam id. Morbi leo urna molestie at elementum eu facilisis. Et pharetra pharetra massa massa ultricies mi quis hendrerit dolor. Id diam maecenas ultricies mi. Viverra mauris in aliquam sem fringilla. Enim ut sem viverra aliquet eget sit.
-        </div>
-        <div style={{position:"absolute",top:"0px"}}>
-        <Greetings text={
-        (articleInfo.reason.indexOf('access')!=-1)?
-        <>You don't have access to this article so far. You can&nbsp;
+        <Greetings text={<>You don't have access to this article so far. You can&nbsp;
         
         <span onClick={()=>unlock(articleInfo.id)} className="link">unlock it with 1 coin</span>.
         
-        </>:((articleInfo.reason.indexOf('not')!=-1)?<>Article not found.</>:<>Please login first!</>)
-    
-    }/></div>
-        </div>
+        </>}/>
         </>);
     }
     else {
@@ -124,44 +116,109 @@ Arcu cursus vitae congue mauris rhoncus aenean vel elit. Risus viverra adipiscin
 				<div className="flex justify-center">
 					<div className="inline-block">
 						<div className="flex">
-							<div
-								className={
+							<Tooltip
+								title={
 									articleInfo.info.cost == 2
-										? "circle-a"
-										: "circle"
+										? "You have upvoted!"
+										: "Click to upvote"
 								}
-								style={{ color: "blue", borderColor: "blue" }}
-								onClick={() => vote(articleInfo.id, 1)}
 							>
-								<ThumbUpIcon sx={{ fontSize: 45 }} />
-							</div>
-							<div
-								className={
+								<div
+									className={
+										articleInfo.info.cost == 2
+											? "circle-a"
+											: "circle"
+									}
+									style={{
+										color: "blue",
+										borderColor: "blue",
+									}}
+									onClick={() => vote(articleInfo.id, 1)}
+								>
+									<ThumbUpIcon sx={{ fontSize: 45 }} />
+								</div>
+							</Tooltip>
+							<Tooltip
+								title={
 									articleInfo.info.cost == 3
-										? "circle-a"
-										: "circle"
+										? "You have downvoted!"
+										: "Click to downvote"
 								}
-								style={{ color: "brown", borderColor: "brown" }}
-								onClick={() => vote(articleInfo.id, -1)}
 							>
-								<ThumbDownIcon sx={{ fontSize: 45 }} />
-							</div>
-							<div
-								className="circle"
-								style={{ color: "red", borderColor: "red" }}
+								<div
+									className={
+										articleInfo.info.cost == 3
+											? "circle-a"
+											: "circle"
+									}
+									style={{
+										color: "brown",
+										borderColor: "brown",
+									}}
+									onClick={() => vote(articleInfo.id, -1)}
+								>
+									<ThumbDownIcon sx={{ fontSize: 45 }} />
+								</div>
+							</Tooltip>
+
+							<Tooltip
+								title={
+									(!reported)
+										? "Click to report low effort or inapproriate content"
+										: "Admin will take a look"
+								}
 							>
-								<ReportIcon sx={{ fontSize: 45 }} />
-							</div>
-							<div
-								className={
+								<div
+									className={reported?"circle-a":"circle"}
+									style={{ color: "red", borderColor: "red" }}
+                                    onClick={() => {
+                                        setReported(true);
+                                    }}
+								>
+									<ReportIcon sx={{ fontSize: 45 }} />
+								</div>
+							</Tooltip>
+							<Tooltip
+								title={
 									articleInfo.info.shared
-										? "circle-a"
-										: "circle"
+										? "you can't share it"
+										: shared
+										? "Link copied to clipboard!"
+										: "Share this article to a friend"
 								}
-								style={{ color: "green", borderColor: "green" }}
 							>
-								<SendIcon sx={{ fontSize: 45 }} />
-							</div>
+								<div
+									className={
+										articleInfo.info.shared
+											? "circle-a"
+											: "circle"
+									}
+									style={{
+										color: "green",
+										borderColor: "green",
+									}}
+									onClick={() => {
+										console.log("share");
+										navigator.clipboard.writeText(
+											url +
+												"/api/retrieve?username=" +
+												new Cookies().get("username") +
+												"&article=" +
+												articleInfo.id +
+												"&hash=" +
+												CryptoJS.MD5(
+													new Cookies().get(
+														"password"
+													) + articleInfo.id
+												)
+										);
+										setShared(true);
+									}}
+									onMouseLeave={() => setShared(false)}
+								>
+									<SendIcon sx={{ fontSize: 45 }} />
+								</div>
+							</Tooltip>
 						</div>
 					</div>
 				</div>
@@ -187,19 +244,3 @@ Arcu cursus vitae congue mauris rhoncus aenean vel elit. Risus viverra adipiscin
         </div>
     </>);
 }
-/*
-
-            <div className="flex justify-center">
-            <div className="p-3 mt-10 inline-block" style={{backgroundColor:'#FFDA947F',borderRadius:"15px"}}>
-                <p className="text-2xl">Thanks for reading! Your opinion matters.</p>
-                <div className="flex">
-                <div className="circle">
-                <ThumbUpIcon/>
-                </div>
-                <div className="circle">
-                <ThumbDownIcon/>
-                </div>
-                </div>
-            </div>
-            </div>
-            */
