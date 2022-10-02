@@ -21,8 +21,9 @@ const User = require('./User.js');
 
 // Serve the static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
-app.use(express.json({limit: "20mb", extended: true}));
-app.use(express.urlencoded({limit: "20mb", extended: true, parameterLimit: 50000}));
+var bodyParser = require('body-parser');
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
 const mongoURL = "mongodb+srv://admin:adminadmin@cluster0.mz5u0n1.mongodb.net/?retryWrites=true&w=majority"
 const mongoose = require('mongoose');
