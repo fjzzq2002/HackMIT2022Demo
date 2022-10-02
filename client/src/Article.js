@@ -85,37 +85,11 @@ export default function Article() {
         </>);
     }
     else {
-        content=<div dangerouslySetInnerHTML={{ __html: articleInfo.content }} />;
-    }
-    return (
-		<>
-			<div className="text-lg px-10">
-				<div className="flex flex-row justify-between pb-3">
-					<div className="text-3xl">
-						<Tag type={articleInfo.type} />
-						<span
-							style={{ fontWeight: "600", paddingLeft: "10px" }}
-						>
-							{articleInfo.title}
-						</span>
-					</div>
-					<div className="text-xl mt-1">
-						By&nbsp;
-						<span
-							className="link"
-							onClick={() => {
-								document.location =
-									"/user/" + articleInfo.author;
-							}}
-						>
-							{articleInfo.author}
-						</span>
-					</div>
-				</div>
-				{content}
-				<div className="flex justify-center">
-					<div className="inline-block">
-						<div className="flex">
+        content=<>
+        <div dangerouslySetInnerHTML={{ __html: articleInfo.content }} />
+        <div className="flex justify-center">
+            <div className="inline-block">
+                <div className="flex">
 							<div
 								className="circle"
 								style={{ color: "blue", borderColor: "blue" }}
@@ -142,12 +116,28 @@ export default function Article() {
 							>
 								<SendIcon sx={{ fontSize: 45 }} />
 							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</>
-	);
+                </div>
+                </div></div>
+        </>;
+    }
+    return (<>
+        <div className="text-lg px-10">
+            <div className="flex flex-row justify-between pb-1 mb-4 border-dashed border-neutral-400 border-b-2">
+            <div className="text-3xl">
+            <Tag type={articleInfo.type}/>
+            <span style={{fontWeight:"600",paddingLeft:"10px"}} className="Rashi">
+            {articleInfo.title}
+            </span>
+            </div>
+            <div className="text-xl mt-2">
+                <span className="linknl" onClick={
+                    ()=>{document.location='/user/'+articleInfo.author}
+                }>@{articleInfo.author}</span>
+            </div>
+            </div>
+            {content}
+        </div>
+    </>);
 }
 /*
 

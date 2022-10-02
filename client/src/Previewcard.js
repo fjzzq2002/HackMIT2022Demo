@@ -74,7 +74,7 @@ export default function Previewcard(props) {
             </div>
         </div>
         <div className="text-right">
-        {props.author}
+        @{props.author}
         </div>
         </div>
         <span className="text-lg ml-1">
