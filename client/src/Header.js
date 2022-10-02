@@ -53,19 +53,13 @@ export default function Header() {
             {
                 user?
                 <div className="text-right text-2xl" style={{paddingTop:"10px"}}>
-                    {user}
-                    {(coins>=0)?<>&nbsp;&nbsp;{coins}<BiCoinStack style={{display:"inline",paddingBottom:"3px"}} className="coin"/></>:<></>}
-                    &nbsp;&nbsp;<BiHomeAlt style={{display:"inline",paddingBottom:"3px",fontSize:"25px"}} className="link" onClick={()=>{
+                    <span className="linknl" onClick={()=>{
                       document.location='/user/'+user;
-                    }}/>
-                    <BiPen style={{display:"inline",paddingBottom:"3px",paddingLeft:"2px",fontSize:"25px"}} className="link" onClick={()=>{
+                    }}>{user}</span>
+                    <BiPen style={{display:"inline",paddingBottom:"5px",fontSize:"28px"}} className="link" onClick={()=>{
                       document.location='/write';
                     }}/>
-                    <BiLogOut style={{display:"inline",paddingBottom:"3px",fontSize:"25px"}} className="link" onClick={()=>{
-                      cookies.remove('username');
-                      cookies.remove('password');
-                      document.location='/';
-                    }}/>
+                    {(coins>=0)?<>&nbsp;&nbsp;{coins}<BiCoinStack style={{display:"inline",paddingBottom:"3px"}} className="coin"/></>:<></>}
                 </div>
                 :
                 <div className="text-right text-2xl linknl" style={{paddingTop:"10px"}} onClick={loginreg}>
