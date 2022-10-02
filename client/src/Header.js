@@ -14,7 +14,7 @@ export default function Header() {
     //navigate('/login');
   }
   const cookies = new Cookies();
-  const [user, setUser] = React.useState(null);
+  const [user, setUser] = React.useState(cookies.get('username'));
   const [coins, setCoins] = React.useState(0);
   const [rng, setRng] = React.useState(0);
   window.refresh_un = async ()=>{
@@ -40,7 +40,7 @@ export default function Header() {
     <>
       <div className="">
         <div className="flex header justify-between border-neutral-200 pb-2 border-b-2 mb-3">
-            <div className="logo text-neutral-800">
+            <div className="logo text-neutral-800 cursor-pointer" onClick={()=>{document.location='/'}}>
                 Cleland
             </div>
             <div className="relative text-right">

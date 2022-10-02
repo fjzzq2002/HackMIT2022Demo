@@ -19,6 +19,7 @@ export async function loader({ params }) {
 				type={x.type}
 				votes={[x.votes.upvotes, x.votes.downvotes]}
 				description={x.description}
+        id={x.article}
 			/>
 		));
   });

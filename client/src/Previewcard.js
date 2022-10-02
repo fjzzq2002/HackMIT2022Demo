@@ -5,6 +5,7 @@ import { IconContext } from "react-icons";
 import { HiOutlineLightBulb, HiOutlineSparkles, HiOutlineSun, HiOutlineMoon } from 'react-icons/hi';
 import { BsMoonStars } from 'react-icons/bs';
 import {IoSparklesOutline} from 'react-icons/io5';
+import { useNavigate } from "react-router-dom";
 
 /*
 function Vote(props) {
@@ -52,9 +53,14 @@ export default function Previewcard(props) {
         icon=<HiOutlineSun className="sun"/>;
         className="greenlayer";
     }
+    let navigate=useNavigate();
+    let id=props.id;
+    function toArticle() {
+      navigate("/read/"+id);
+    }
   return (
     <>
-      <div className={"rounded border-2 p-3 mt-4 border-neutral-300 "+className}>
+      <div className={"rounded border-2 p-3 mt-4 cursor-pointer border-neutral-300 "+className} onClick={toArticle}>
         <div className="flex justify-between align-end">
         <div>
             <div className="text-2xl">
