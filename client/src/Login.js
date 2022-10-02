@@ -4,9 +4,9 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import Button from "react-bootstrap/Button";
 import { useState } from "react";
+import { url } from "./url";
 import Cookies from "universal-cookie";
 const CryptoJS = require("crypto-js");
-import {url} from "./url";
 
 
 export default function Login() {
