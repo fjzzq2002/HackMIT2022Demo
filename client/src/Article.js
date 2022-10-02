@@ -24,19 +24,19 @@ export async function loader({params}) {
     const response = await cfetch(
 		url + "/api/fetch?id=" + uid
 	);
+    let reason='';
     let data;
     try {
         data = await response.json();
         console.log(data);
-        if (data.article === undefined) 
-            throw("No article found");
+        reason=data.reason+'';
     } catch (error) {
-        console.log(error);
-        return {id:uid, access:false};
+        if(reason=='') reason='Unknown error';
     }
     const info = await artinfo(uid);
     console.log(info);
-    return {id:uid,content:data.content,title:data.title,type:data.type,author:data.author,access:true, info:info};
+    return {id:uid,content:data.content,title:data.title,type:data.type,
+        author:data.author,access:reason=='',reason:reason,info:info};
 }
 
 function Tag(props) {
@@ -97,14 +97,28 @@ export default function Article() {
         return -1;
     };
 
+	console.log(articleInfo.access);
+
     let content=<></>;
     if(!articleInfo.access) {
         content=(<>
-        <Greetings text={<>You don't have access to this article so far. You can&nbsp;
+        <div style={{position:"relative"}}>
+        <div style={{filter:"blur(3px)",opacity:"0.2"}} className="noselect">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae sapien pellentesque habitant morbi tristique senectus et. Fringilla est ullamcorper eget nulla facilisi. Neque aliquam vestibulum morbi blandit cursus risus at ultrices mi. Ultricies integer quis auctor elit sed vulputate. Pretium lectus quam id leo in vitae turpis massa sed. Quis imperdiet massa tincidunt nunc pulvinar sapien et. Congue quisque egestas diam in arcu cursus euismod quis. Commodo viverra maecenas accumsan lacus vel facilisis volutpat est velit. Magna fermentum iaculis eu non diam phasellus vestibulum lorem. Faucibus scelerisque eleifend donec pretium. Odio facilisis mauris sit amet. Aliquam sem et tortor consequat id. Nec sagittis aliquam malesuada bibendum. Etiam tempor orci eu lobortis elementum nibh. Nulla posuere sollicitudin aliquam ultrices sagittis orci a. Tortor at risus viverra adipiscing. Turpis tincidunt id aliquet risus feugiat in ante metus. Suspendisse potenti nullam ac tortor vitae purus faucibus ornare suspendisse.<br/>
+Posuere morbi leo urna molestie at. Tellus orci ac auctor augue mauris augue. Tristique nulla aliquet enim tortor at auctor urna. Non quam lacus suspendisse faucibus interdum posuere lorem ipsum. Nunc sed augue lacus viverra vitae. Egestas sed tempus urna et pharetra. Interdum posuere lorem ipsum dolor sit. Dictum at tempor commodo ullamcorper a lacus vestibulum sed. Sem et tortor consequat id porta nibh. Commodo quis imperdiet massa tincidunt nunc pulvinar sapien. At imperdiet dui accumsan sit amet.<br/>
+Arcu cursus vitae congue mauris rhoncus aenean vel elit. Risus viverra adipiscing at in. In cursus turpis massa tincidunt dui ut ornare lectus sit. Sagittis eu volutpat odio facilisis mauris sit. Sed viverra ipsum nunc aliquet bibendum. Sed libero enim sed faucibus turpis. In pellentesque massa placerat duis. Mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Quam id leo in vitae turpis massa sed elementum. Diam vulputate ut pharetra sit amet aliquam id. Morbi leo urna molestie at elementum eu facilisis. Et pharetra pharetra massa massa ultricies mi quis hendrerit dolor. Id diam maecenas ultricies mi. Viverra mauris in aliquam sem fringilla. Enim ut sem viverra aliquet eget sit.
+        </div>
+        <div style={{position:"absolute",top:"0px"}}>
+        <Greetings text={
+        (articleInfo.reason.indexOf('access')!=-1)?
+        <>You don't have access to this article so far. You can&nbsp;
         
         <span onClick={()=>unlock(articleInfo.id)} className="link">unlock it with 1 coin</span>.
         
-        </>}/>
+        </>:((articleInfo.reason.indexOf('not')!=-1)?<>Article not found.</>:<>Please login first!</>)
+    
+    }/></div>
+        </div>
         </>);
     }
     else {
