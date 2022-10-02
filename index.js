@@ -94,7 +94,7 @@ async function postArticle(res, req, title, content, description, type) {
     const user = await User.findOne({ username: author });
     user.articles.push({article: newId, cost: -1, shared: true});
     user.save();
-    res.send(newId);
+    res.send("0"+newId);
 }
 
 async function fetchArticle(id) {

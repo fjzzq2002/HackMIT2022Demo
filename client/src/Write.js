@@ -23,7 +23,7 @@ window.katex = katex;
 
 export default function Editor() {
     const [checked, setChecked] = useState(false);
-    const [radioValue, setRadioValue] = useState('1');
+    const [radioValue, setRadioValue] = useState('Life');
     const [value, setValue] = useState('');
     let [title, setTitle] = useState('');
     let [summary, setSummary] = useState('');
@@ -65,7 +65,11 @@ export default function Editor() {
         cookies.get("password");
         console.log(requestOptions);
         const result = await fetch(url + "/api/post" + suffix, requestOptions);
-        console.log(await result.text());
+        const ans = await result.text();
+        if (ans.indexOf("log") != -1) 
+          alert("Please login first");
+        else
+          document.location=('/');
     }
 
     return (<>
