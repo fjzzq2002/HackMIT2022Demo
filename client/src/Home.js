@@ -14,8 +14,10 @@ export async function loader({ params }) {
   .then((res)=>{console.log(res);return res.json()})
   .then((res) => {
     //res = res.json();
-    console.log(res)
-		return res.reverse().map((x) => (
+    console.log(res);
+		return res.map((x)=>(
+      [x,x.votes.upvotes-x.votes.downvotes+(Math.random()*2-1)*(Math.sqrt(x.votes.upvotes+x.votes.downvotes)*2+1)]
+    )).sort((a,b)=>b[1]-a[1]).map(x=>x[0]).map(x => (
 			<Previewcard
 				title={x.title}
 				author={x.author}
