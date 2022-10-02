@@ -59,8 +59,8 @@ code {
   font-size: 32px;
   font-weight: 500;
   font-family: 'Mali', cursive;
-  transform: skew(-5deg);
-  -webkit-transform: skew(-5deg);
+  transform: skew(-3deg);
+  -webkit-transform: skew(-3deg);
 }
 
 .lightbulb path {
@@ -199,23 +199,39 @@ input[type="password"]
                                   supported by Chrome, Edge, Opera and Firefox */
 }
 
+.px10m {
+  padding: 0 max(min(40px,5vw - 25px),0px);
+}
+
 .fromL, .fromR, .fromN {
-  font-size: 40px;
-  padding: 50px;
+  padding: min(50px,6vw) 0;
+  opacity: 0;
+}
+.fromD {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  padding-top: 200px;
+  padding-bottom: 50px;
   opacity: 0;
 }
 
 .titleskew {
   display: inline-block;
-  transform: skew(-3deg);
-  -webkit-transform: skew(-3deg);
+  transform: skew(-2deg);
+  -webkit-transform: skew(-2deg);
 }
 
 .fromL {
-  width: 55%;
-  min-width: 500px;
-  transform: skew(-2deg);
-  -webkit-transform: skew(-2deg);
+  width: min(max(75%,300px),100%);
+  transform: skew(-1deg);
+  -webkit-transform: skew(-1deg);
+}
+.reveal {
+  font-size: min(6vw,40px);
+}
+.reveals {
+  font-size: min(5vw,35px);
 }
 .active {
   opacity: 1;
@@ -227,19 +243,21 @@ input[type="password"]
 .fromL.active {
   animation: fade-left 1s ease-in;
 }
+.fromD.active {
+  animation: fadeInFromNone 1s ease-in;
+}
 .fromR {
   text-align: right;
   margin-left: auto;
-  width: 55%;
-  min-width: 500px;
-  transform: skew(2deg);
-  -webkit-transform: skew(2deg);
+  width: min(max(75%,300px),100%);
+  transform: skew(1deg);
+  -webkit-transform: skew(1deg);
 }
 .fromR.active {
   animation: fade-right 1s ease-in;
 }
 .Sep {
-  height: 250px;
+  height: min(250px,30vw);
 }
 
 @keyframes fade-bottom {

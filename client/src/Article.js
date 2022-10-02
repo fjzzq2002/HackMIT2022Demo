@@ -240,7 +240,7 @@ Arcu cursus vitae congue mauris rhoncus aenean vel elit. Risus viverra adipiscin
 		);
     }
     return (<>
-        <div className="text-lg px-10 pt-1">
+        <div className="text-lg pt-1 px10m">
             <div className="flex flex-row justify-between pb-1 mb-4 border-dashed border-neutral-400 border-b-2">
             <div className="text-3xl">
             <Tag type={articleInfo.type}/>

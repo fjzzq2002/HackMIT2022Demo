@@ -33,7 +33,7 @@ function UserPanel(props) {
         listWritten.push(articleMap[t.article]);
     }
     return (<>
-    <div className="text-xl flex-auto p-4 rounded-lg">
+    <div className="text-xl flex-auto p-3 rounded-lg">
     <div>
     <div className='pb-2 mb-4 border-b-2 border-dashed border-neutral-400'>
     <span className="text-2xl">

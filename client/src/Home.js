@@ -1,10 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './index.css';
 import Previewcard from "./Previewcard";
 import { useLoaderData } from "react-router-dom";
 import {cfetch} from "./cookiefetch";
 import {url} from "./url";
+import Cookies from "universal-cookie";
+import { useNavigate } from 'react-router-dom';
 
 export async function loader({ params }) {
   console.log(params);
@@ -27,8 +29,16 @@ export async function loader({ params }) {
   return articleList;
 }
 export default function Home() {
-  // let lists = fetch("/api/list");
+  const cookie = new Cookies();
+  const navigate = useNavigate();
   const homePage = useLoaderData();
+  const firsttime = cookie.get("firsttime");
+  useEffect(() => {
+    if(firsttime==undefined) {
+      cookie.set('firsttime',false);
+      navigate('/intro');
+    }
+  });
   return homePage;
   // return (
   //   <>

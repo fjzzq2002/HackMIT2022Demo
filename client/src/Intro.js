@@ -31,7 +31,10 @@ export default function Home() {
     reveal();
 
     return <>
-    <img src="beaverread.png" style={{width:"100%",maxWidth:"800px",margin:"auto"}}/>
+    <div className="text-center fromN reveal active">
+        Welcome to Beaver Dam!
+    </div>
+    <img src="beaverread.png" style={{width:"100%",maxWidth:"800px",margin:"auto",paddingBottom:"100px"}}/>
     <div className="fromL reveal">
     You might read a lot :)
     </div>
@@ -41,21 +44,21 @@ export default function Home() {
     <div className="fromL reveal">
     But you don't feel like you learned a lot. :-
     </div>
-    <div className="Sep">&nbsp;</div>
+    <img src="Cambridge_Public_Library.jpg" className="fromD reveal"/>
     <div className="fromL reveal">
     In Beaver Dam, you probably can't read a lot.
     </div>
     <div className="fromR reveal">
     But every day, we hope you'll get something new!
     </div>
-    <div className="Sep">&nbsp;</div>
+    <img src="Northern_Lights_timelapse.gif" className="fromD reveal"/>
     <div className="fromL reveal">
     Learn about how to build a rocket, be amazed by a newly discovered species, or read a moving sci-fi story.
     </div>
     <div className="fromR reveal">
     All from the fellow beavers around you.
     </div>
-    <div className="Sep">&nbsp;</div>
+    <img src="beaver-on-a-dam.jpg" className="fromD reveal"/>
     <div className="fromL reveal">
     You get a new coin every day to read an article. Upvote to reward the author that coin, and share the article with others.
     </div>
@@ -66,7 +69,7 @@ export default function Home() {
     <div className="fromN reveal text-center abitskew">
     Beaver Dam, discover something new every day!
     <br/>
-    <span className="text-3xl link" style={{color:"rgb(90,90,90)"}} onClick={()=>{document.location='/';}}>
+    <span className="reveals link" style={{color:"rgb(90,90,90)"}} onClick={()=>{document.location='/';}}>
     Get Started!
     </span>
     </div>

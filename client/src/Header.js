@@ -48,17 +48,21 @@ export default function Header() {
             <div className="logo text-neutral-800 cursor-pointer" onClick={()=>{document.location='/'}}>
                 Beaver Dam
             </div>
-            <div className="relative text-right">
+            <div className="text-right">
             {
                 user?
-                <div className="text-right text-2xl" style={{paddingTop:"12px"}}>
+                <div className="flex flex-wrap justify-end text-right text-2xl" style={{paddingTop:"12px"}}>
+                  <div className="inline">
                     <span className="linknl" onClick={()=>{
                       document.location='/user/'+user;
                     }}>{user}</span>
                     <BiPen style={{display:"inline",paddingBottom:"5px",fontSize:"28px"}} className="link" onClick={()=>{
                       document.location='/write';
                     }}/>
-                    {(coins>=0)?<>&nbsp;&nbsp;{coins}<BiCoinStack style={{display:"inline",paddingBottom:"3px"}} className="coin"/></>:<></>}
+                    </div>
+                    {(coins>=0)?<><div className="inline pl-1">
+                      {coins}<BiCoinStack style={{display:"inline",paddingBottom:"3px"}} className="coin"/>
+                      </div></>:<></>}
                 </div>
                 :
                 <div className="text-right text-2xl linknl" style={{paddingTop:"10px"}} onClick={loginreg}>
