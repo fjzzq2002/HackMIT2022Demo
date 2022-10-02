@@ -21,6 +21,9 @@ const User = require('./User.js');
 
 // Serve the static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.json({limit: "20mb", extended: true}));
+app.use(express.urlencoded({limit: "20mb", extended: true, parameterLimit: 50000}));
+
 const mongoURL = "mongodb+srv://admin:adminadmin@cluster0.mz5u0n1.mongodb.net/?retryWrites=true&w=majority"
 const mongoose = require('mongoose');
 const { get } = require('http');
@@ -441,7 +444,6 @@ app.get('*', (req,res) =>{
 
 
 require('dotenv').config();
-
 
 var fs = require('fs');
 var http = require('http');
