@@ -443,7 +443,32 @@ app.get('*', (req,res) =>{
 require('dotenv').config();
 
 
-const port = process.env.PORT || 5000;
-app.listen(port);
 
-console.log('App is listening on port ' + port);
+
+if(process.env.USEHTTPS) {
+    // https://stackoverflow.com/a/38525463
+    // https://itnext.io/node-express-letsencrypt-generate-a-free-ssl-certificate-and-run-an-https-server-in-5-minutes-a730fbe528ca
+    const privateKey = fs.readFileSync('/etc/letsencrypt/live/beaverdam.top/privkey.pem', 'utf8');
+    const certificate = fs.readFileSync('/etc/letsencrypt/live/beaverdam.top/cert.pem', 'utf8');
+    const ca = fs.readFileSync('/etc/letsencrypt/live/beaverdam.top/chain.pem', 'utf8');
+    var options = {
+      key: privateKey,
+      cert: certificate,
+      ca: ca,
+      requestCert: false,
+      rejectUnauthorized: false
+    }
+    var server = https.createServer(options, app);
+    server.listen(21, () => {
+      console.log("Server listening on 21 (https)");
+    });
+    const httpServer = http.Server(app);
+    httpServer.listen(80, () => {
+      console.log("Server listening on 80 (http)");
+    });
+}
+else {
+    const port = process.env.PORT || 5000;
+    app.listen(port);
+    console.log('App is listening on port ' + port);
+}
