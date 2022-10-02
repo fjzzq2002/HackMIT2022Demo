@@ -241,14 +241,14 @@ Arcu cursus vitae congue mauris rhoncus aenean vel elit. Risus viverra adipiscin
     }
     return (<>
         <div className="text-lg pt-1 px10m">
-            <div className="flex flex-row justify-between pb-1 mb-4 border-dashed border-neutral-400 border-b-2">
+            <div className="flex flex-wrap flex-row justify-between pb-1 mb-4 border-dashed border-neutral-400 border-b-2">
             <div className="text-3xl">
             <Tag type={articleInfo.type}/>
             <div style={{fontWeight:"600",paddingLeft:"10px"}} className="Rashi titleskew">
             {articleInfo.title}
             </div>
             </div>
-            <div className="text-xl mt-2">
+            <div className="text-xl mt-2 flex-grow text-right">
                 <span className="linknl" onClick={
                     ()=>{document.location='/user/'+articleInfo.author}
                 }>@{articleInfo.author}</span>

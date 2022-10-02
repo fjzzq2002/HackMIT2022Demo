@@ -73,7 +73,7 @@ export default function Previewcard(props) {
             <Vote votes={props.votes[0]-props.votes[1]}/>
             </div>
         </div>
-        <div className="text-right mb-2">
+        <div className="text-right mb-2 flex-grow">
         @{props.author}
         </div>
         </div>
