@@ -333,12 +333,12 @@ app.get("/api/fetch", async (req, res) => {
                 else reason="You don't have access to this article.";
             }
         }
-        if(reason!='') article.content='';
+    
         res.send({
             article: article.id,
             title: article.title,
             description: article.description,
-            content: article.content,
+            content: (reason=='')?article.content:'',
             votes: article.votes,
             author: article.author,
             time: article.time,
