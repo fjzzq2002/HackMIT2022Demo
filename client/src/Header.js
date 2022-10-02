@@ -28,11 +28,9 @@ export default function Header() {
       setCoins(0);
     }
     else {
-      console.log('rfun');
-      const articleList = await cfetch(url + "/api/getInfo?username="+un)
+      await cfetch(url + "/api/getInfo?username="+un)
       .then((res)=>{return res.json()})
       .then((res) => {
-        console.log('EZ');
         setCoins(res.coins);
       });
     }
@@ -48,7 +46,7 @@ export default function Header() {
       <div className="">
         <div className="flex header justify-between border-neutral-200 pb-2 border-b-2 mb-3">
             <div className="logo text-neutral-800 cursor-pointer" onClick={()=>{document.location='/'}}>
-                Cleland
+                Beaver Dam
             </div>
             <div className="relative text-right">
             {
