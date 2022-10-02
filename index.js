@@ -332,7 +332,8 @@ app.get("/api/vote", async (req, res) => {
     else if (req.query.vote == -1) 
         article.votes.downvotes++;
     article.save();
-    chargeUser(article.author, -history.cost);
+    if (req.query.vote == 1) 
+        chargeUser(article.author, -history.cost);
     res.send(""+history.cost);
     history.cost = 2;
     user.save();
