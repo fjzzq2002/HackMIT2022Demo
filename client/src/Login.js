@@ -50,7 +50,7 @@ export default function Login() {
 		<div className="flex justify-center align-between flex-column text-center">
 			<input
 				type="text"
-				className="text-3xl border-b-2 border-neutral-300 p-1 Lora m-auto my-3"
+				className="text-3xl border-b-2 border-neutral-300 p-1 m-auto my-3"
 				placeholder="Username"
 				style={{ width: "50%" }}
 				onChange={(t) => setUsername(t.target.value)}
@@ -58,7 +58,7 @@ export default function Login() {
 			/>
 			<input
 				type="password"
-				className="text-3xl border-b-2 border-neutral-300 p-1 Lora m-auto my-1"
+				className="text-3xl border-b-2 border-neutral-300 p-1 m-auto my-1"
 				placeholder="Password"
 				style={{ width: "50%" }}
 				onChange={(t) => setPassword(t.target.value)}
