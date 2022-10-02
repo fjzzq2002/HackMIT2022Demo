@@ -52,7 +52,7 @@ export default function Login() {
 				type="text"
 				className="text-3xl border-b-2 border-neutral-300 p-1 m-auto my-3"
 				placeholder="Username"
-				style={{ width: "50%" }}
+				style={{ width: "min(max(50%,300px),100%)" }}
 				onChange={(t) => setUsername(t.target.value)}
 				maxLength="20"
 			/>
@@ -60,7 +60,7 @@ export default function Login() {
 				type="password"
 				className="text-3xl border-b-2 border-neutral-300 p-1 m-auto my-1"
 				placeholder="Password"
-				style={{ width: "50%" }}
+				style={{ width: "min(max(50%,300px),100%)" }}
 				onChange={(t) => setPassword(t.target.value)}
 				maxLength="20"
 			/>
@@ -69,7 +69,7 @@ export default function Login() {
 				onClick={login}
 				className="m-auto mt-5 mb-4"
                 size="lg"
-				style={{ width: "20%" }}
+				style={{ width: "min(max(20%,300px),100%)" }}
 			>
 				Login / Register
 			</Button>

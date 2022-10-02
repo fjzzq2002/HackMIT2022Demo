@@ -61,7 +61,7 @@ export default function Previewcard(props) {
   return (
     <>
       <div className={"rounded border-2 p-3 mt-4 cursor-pointer border-neutral-300 mycard "+className} onClick={toArticle}>
-        <div className="flex justify-between align-end">
+        <div className="flex flex-wrap justify-between align-end">
         <div>
             <div className="text-2xl">
             <IconContext.Provider value={{ color: "black" }}>
@@ -73,7 +73,7 @@ export default function Previewcard(props) {
             <Vote votes={props.votes[0]-props.votes[1]}/>
             </div>
         </div>
-        <div className="text-right">
+        <div className="text-right mb-2">
         @{props.author}
         </div>
         </div>

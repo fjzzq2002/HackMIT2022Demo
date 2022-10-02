@@ -44,7 +44,7 @@ export default function Header() {
   return (
     <>
       <div className="">
-        <div className="flex header justify-between border-neutral-200 pb-2 border-b-2 mb-3 px-2">
+        <div className="flex flex-wrap header justify-between border-neutral-200 pb-2 border-b-2 mb-3 px-2">
             <div className="logo text-neutral-800 cursor-pointer" onClick={()=>{document.location='/'}}>
                 Beaver Dam
             </div>
@@ -66,7 +66,9 @@ export default function Header() {
                 </div>
                 :
                 <div className="text-right text-2xl linknl" style={{paddingTop:"10px"}} onClick={loginreg}>
-                    Login / Register
+                  <div className="flex flex-wrap justify-end">
+                  <div className="inline">Login / </div><div className="inline">Register</div>
+                    </div>
                 </div>
             }
             </div>
