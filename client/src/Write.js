@@ -52,16 +52,17 @@ export default function Editor() {
         // console.log(value,title,summary);
         const content = value, description = summary, type = radioValue;
         const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({content: content, title: title, description: description, type: type})
-        };
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({content: content, title: title, description: description, type: type})
+          };
         const cookies = new Cookies();
         const suffix =
-			"?loginname=" +
-			cookies.get("username") +
-			"&password=" +
-			cookies.get("password");
+        "?loginname=" +
+        cookies.get("username") +
+        "&password=" +
+        cookies.get("password");
+        console.log(requestOptions);
         const result = await fetch("http://localhost:5000/api/post" + suffix, requestOptions);
         console.log(await result.text());
     }
