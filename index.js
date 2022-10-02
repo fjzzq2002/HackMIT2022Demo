@@ -461,8 +461,8 @@ if(process.env.USEHTTPS) {
       rejectUnauthorized: false
     }
     var server = https.createServer(options, app);
-    server.listen(21, () => {
-      console.log("Server listening on 21 (https)");
+    server.listen(443, () => {
+      console.log("Server listening on 443 (https)");
     });
     const httpServer = http.Server(app);
     httpServer.listen(80, () => {
