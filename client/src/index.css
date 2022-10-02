@@ -227,11 +227,14 @@ input[type="password"]
   transform: skew(-1deg);
   -webkit-transform: skew(-1deg);
 }
+.revealbig {
+  font-size: min(6vw,40px) !important;
+}
 .reveal {
-  font-size: min(6vw,40px);
+  font-size: min(5vw,35px);
 }
 .reveals {
-  font-size: min(5vw,35px);
+  font-size: min(4vw,30px);
 }
 .active {
   opacity: 1;
@@ -244,7 +247,7 @@ input[type="password"]
   animation: fade-left 1s ease-in;
 }
 .fromD.active {
-  animation: fadeInFromNone 1s ease-in;
+  animation: fadeInFromNone 3s ease-out;
 }
 .fromR {
   text-align: right;

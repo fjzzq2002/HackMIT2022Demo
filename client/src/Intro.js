@@ -31,7 +31,7 @@ export default function Home() {
     reveal();
 
     return <>
-    <div className="text-center fromN reveal active">
+    <div className="text-center revealbig" style={{paddingTop:"30px"}}>
         Welcome to Beaver Dam!
     </div>
     <img src="beaverread.png" style={{width:"100%",maxWidth:"800px",margin:"auto",paddingBottom:"100px"}}/>
