@@ -13,11 +13,12 @@ import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import ReportIcon from '@mui/icons-material/Report';
 import SendIcon from '@mui/icons-material/Send';
+import {url} from './url';
 
 export async function loader({params}) {
     const uid=params.articleId;
     const response = await cfetch(
-		"http://localhost:5000/api/fetch?id=" + uid
+		url + "/api/fetch?id=" + uid
 	);
     let data;
     try {
@@ -55,7 +56,7 @@ export default function Article() {
 
     async function unlock(id) {
         console.log('unlock',id);
-        const data = await cfetch('http://localhost:5000/api/buy?id='+id);
+        const data = await cfetch(url + '/api/buy?id='+id);
         console.log(data.text());
         //data = await data.text();
         //if (data.indexOf('success') !== -1) {
@@ -66,7 +67,7 @@ export default function Article() {
         // return -1: if you are the author, or you have voted
         // otherwise, return your orginal cost (0/1)
         console.log('vote',id);
-        const data = await cfetch('http://localhost:5000/api/vote?id='+id+'&vote='+vote);
+        const data = await cfetch(url + '/api/vote?id='+id+'&vote='+vote);
         const txt = await data.text();
         if (txt == 0) return 0;
         if (txt == 1) return 1;

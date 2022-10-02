@@ -17,6 +17,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import katex from 'katex';
 import 'katex/dist/katex.min.css';
+import {url} from './url';
 
 window.katex = katex;
 
@@ -63,7 +64,7 @@ export default function Editor() {
         "&password=" +
         cookies.get("password");
         console.log(requestOptions);
-        const result = await fetch("http://localhost:5000/api/post" + suffix, requestOptions);
+        const result = await fetch(url + "/api/post" + suffix, requestOptions);
         console.log(await result.text());
     }
 

@@ -9,6 +9,7 @@ import { cfetch } from './cookiefetch';
 import { BiBookOpen, BiPen, BiGlassesAlt } from 'react-icons/bi';
 import {BsPencilSquare} from 'react-icons/bs';
 import {BiHomeAlt, BiLogOut} from 'react-icons/bi';
+import {url} from './url';
 
 export default function Header() {
 
@@ -28,7 +29,7 @@ export default function Header() {
     }
     else {
       console.log('rfun');
-      const articleList = await cfetch("http://127.0.0.1:5000/api/getInfo?username="+un)
+      const articleList = await cfetch(url + "/api/getInfo?username="+un)
       .then((res)=>{return res.json()})
       .then((res) => {
         console.log('EZ');

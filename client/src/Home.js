@@ -4,10 +4,11 @@ import './index.css';
 import Previewcard from "./Previewcard";
 import { useLoaderData } from "react-router-dom";
 import {cfetch} from "./cookiefetch";
+import {url} from "./url";
 
 export async function loader({ params }) {
   console.log(params);
-  const articleList = await cfetch("http://127.0.0.1:5000/api/list")
+  const articleList = await cfetch(url + "/api/list")
   .then((res)=>{console.log(res);return res.json()})
   .then((res) => {
     //res = res.json();
