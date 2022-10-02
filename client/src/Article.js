@@ -112,7 +112,7 @@ Arcu cursus vitae congue mauris rhoncus aenean vel elit. Risus viverra adipiscin
         <Greetings text={
         (articleInfo.reason.indexOf('access')!=-1)?
         <>You don't have access to this article so far.&nbsp;
-        {(articleInfo.reason.indexOf('free')==-1)? "You can " : "As the lucky first reader, you can read this article for free. "}
+        {(articleInfo.reason.indexOf('free')==-1)? "You can " : (articleInfo.author == "admin" ? "You are not the first reader, but admins are kind enough to let everyone read their articles for free. " : "As the lucky first reader, you can read this article for free. ")}
 
         <span onClick={()=>unlock(articleInfo.id)} className="link">{(articleInfo.reason.indexOf('free')==-1)? "unlock it with 1 coin." : "Nice!"}</span>
         

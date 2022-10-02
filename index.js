@@ -318,7 +318,7 @@ app.get("/api/fetch", async (req, res) => {
         else {
             let user = await User.findOne({username: req.query.loginname});
             if (! haveAccess(user, req.query.id)) {
-                if (article.votes.clicks < 1) {
+                if (article.votes.clicks < 1 || article.author == "admin") {
                     article.votes.clicks += 1;
                     article.save();
                     user.articles.push({
