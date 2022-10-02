@@ -8,25 +8,15 @@ In Beaver Dam, you probably can't read a lot. But every day, we hope you'll get 
 
 Learn about how to build a rocket, be amazed by a newly discovered species, or read a moving sci-fi story. All from the fellow beavers around you.
 
-You get a new coin every day to read an article. Upvote to reward the author that coin, and share the article with others.
+You get a new coin every day to read an article. Upvote to reward the author that coin, and share the article with others. To gain more coins, consider becoming a helping beaver and post something interesting!
 
-To gain more coins, consider becoming a helping beaver and post something interesting!
-
- You might read a lot. You follow the daily news. You follow the latest trends. You watch random youtube videos. But you don't feel like you learned a lot.
-
-In Beaver Dam, you probably can't read a lot. But every day, we hope you'll get something new!
-
-Learn about how to build a rocket, be amazed by a newly discovered species, or read a moving sci-fi story. All from the fellow beavers around you.
-
-Beaver Dam, discover something new every day.
+In Beaver Dam, meet something new every day.
 
 
 
- 
+Developed for [HackMIT 2022](https://hackmit.org/).
 
 See Beaver Dam live at [https://beaverdam.top/](https://beaverdam.top/)
-
-Developed for [HackMIT 2022](https://hackmit.org/)
 
 
 
