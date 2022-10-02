@@ -111,9 +111,10 @@ Arcu cursus vitae congue mauris rhoncus aenean vel elit. Risus viverra adipiscin
         <div style={{position:"absolute",top:"0px"}}>
         <Greetings text={
         (articleInfo.reason.indexOf('access')!=-1)?
-        <>You don't have access to this article so far. You can&nbsp;
-        
-        <span onClick={()=>unlock(articleInfo.id)} className="link">unlock it with 1 coin</span>.
+        <>You don't have access to this article so far.&nbsp;
+        {(articleInfo.reason.indexOf('free')==-1)? "You can " : "As the lucky first reader, you can read this article for free. "}
+
+        <span onClick={()=>unlock(articleInfo.id)} className="link">{(articleInfo.reason.indexOf('free')==-1)? "unlock it with 1 coin." : "Nice!"}</span>
         
         </>:((articleInfo.reason.indexOf('not')!=-1)?<>Article not found.</>:<>Please login first!</>)
     

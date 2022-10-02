@@ -278,14 +278,18 @@ app.get('/api/buy', async (req, res) => {
             res.send("You already have access to this article");
             return ;
         }
-        if (! await chargeUser(req.query.loginname, 1)) {
+
+        let article = await Article.findOne({ id: req.query.id });
+        let cost = 1;
+        // if (article.votes.clicks < 1) cost = 0;
+        // article.votes.clicks += 1;
+        // article.save();
+        if (! await chargeUser(req.query.loginname, cost)) {
             res.send("Not enough coins");
             console.log("money ");
             return ;
         }
-
         console.log("Bought ");
-        // append the new article
         user.articles.push({article: req.query.id, cost: 1, shared: false});
         user.save();
         res.send('successully bought');
@@ -314,7 +318,19 @@ app.get("/api/fetch", async (req, res) => {
         else {
             let user = await User.findOne({username: req.query.loginname});
             if (! haveAccess(user, req.query.id)) {
-                reason="You don't have access to this article.";
+                if (article.votes.clicks < 1) {
+                    article.votes.clicks += 1;
+                    article.save();
+                    user.articles.push({
+						article: req.query.id,
+						cost: 1,
+						shared: false,
+					});
+					user.save();
+                    reason="You don't have access to this article. But it's free !";
+                    console.log("FREE");
+                }
+                else reason="You don't have access to this article.";
             }
         }
         if(reason!='') article.content='';
