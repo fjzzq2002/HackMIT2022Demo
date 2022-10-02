@@ -20,7 +20,7 @@ const Article = require('./Article.js');
 const User = require('./User.js');
 
 // Serve the static files from the React app
-//app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, 'client/build')));
 const mongoURL = "mongodb+srv://admin:adminadmin@cluster0.mz5u0n1.mongodb.net/?retryWrites=true&w=majority"
 const mongoose = require('mongoose');
 const { get } = require('http');
