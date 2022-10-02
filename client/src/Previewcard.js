@@ -60,7 +60,7 @@ export default function Previewcard(props) {
     }
   return (
     <>
-      <div className={"rounded border-2 p-3 mt-4 cursor-pointer border-neutral-300 "+className} onClick={toArticle}>
+      <div className={"rounded border-2 p-3 mt-4 cursor-pointer border-neutral-300 mycard "+className} onClick={toArticle}>
         <div className="flex justify-between align-end">
         <div>
             <div className="text-2xl">
