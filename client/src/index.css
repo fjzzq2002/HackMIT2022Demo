@@ -26,9 +26,10 @@ code {
 }
 
 .header {
+  padding-top: 10px;
   width: 100%;
   margin-bottom: -10px;
-  box-shadow: 0px 2px #B89D939F;
+  box-shadow: 0px 1px #B89D939F;
 /*  background-color: #FEFCF6;
   box-shadow: 2px 2px #888888;*/
 }
@@ -144,15 +145,13 @@ body {
 }
 .mycard {
   transition: 0.1s;
-  border-color: rgb(180,180,180);
-  box-shadow: 1px 1px #8888884F;
+  border-color: rgb(190,190,190);
 }
 .mycard:hover {
   /*border color transition animation*/
   transform: translate(-1px, -0.5px);
-  border-color: rgb(190,190,190);
+  border-color: rgb(160,160,160);
   transition: 0.3s ease-out;
-  box-shadow: 2px 2px 1px #8888887F;
 }
 
 input[type="text"]
