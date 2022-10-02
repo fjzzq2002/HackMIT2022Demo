@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import Header from "./Header";
+import Intro from './Intro';
 import User, {
   loader as userLoader,
 } from "./User";
@@ -47,7 +48,6 @@ const router = createBrowserRouter([
 		path: "write",
 		element: <Write />,
 	},
-
 	{
 		path: "login",
 		element: <Login />,
@@ -56,6 +56,10 @@ const router = createBrowserRouter([
 		path: "retrieve/:username/:article/:hash",
 		element: <Shared />,
 		loader: sharedLoader,
+	},
+	{
+		path: "intro",
+		element: <Intro />,
 	},
 ]);
 

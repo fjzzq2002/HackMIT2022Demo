@@ -118,6 +118,9 @@ textarea:focus, input:focus{
 .ql-editor{
   min-height:500px;
 }
+.ql-editor p {
+  line-height: 1.9;
+}
 
 body {
   background-color: #FEF8EB3F !important;
@@ -194,4 +197,94 @@ input[type="password"]
         -ms-user-select: none; /* Internet Explorer/Edge */
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
+}
+
+.fromL, .fromR, .fromN {
+  font-size: 40px;
+  padding: 50px;
+  opacity: 0;
+}
+
+.titleskew {
+  display: inline-block;
+  transform: skew(-3deg);
+  -webkit-transform: skew(-3deg);
+}
+
+.fromL {
+  width: 55%;
+  min-width: 500px;
+  transform: skew(-2deg);
+  -webkit-transform: skew(-2deg);
+}
+.active {
+  opacity: 1;
+}
+.fromN.active {
+  animation: fadeInFromNone 1s ease-in;
+  animation-fill-mode: forwards;
+}
+.fromL.active {
+  animation: fade-left 1s ease-in;
+}
+.fromR {
+  text-align: right;
+  margin-left: auto;
+  width: 55%;
+  min-width: 500px;
+  transform: skew(2deg);
+  -webkit-transform: skew(2deg);
+}
+.fromR.active {
+  animation: fade-right 1s ease-in;
+}
+.Sep {
+  height: 250px;
+}
+
+@keyframes fade-bottom {
+  0% {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes fade-left {
+  0% {
+    transform: translateX(-100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes fade-right {
+  0% {
+    transform: translateX(100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes fadeInFromNone {
+    0% {
+        display: none;
+        opacity: 0;
+    }
+
+    1% {
+        display: block;
+        opacity: 0;
+    }
+
+    100% {
+        display: block;
+        opacity: 1;
+    }
 }
