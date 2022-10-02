@@ -29,7 +29,7 @@ export default function Editor() {
 
     const modules = {
       toolbar: [
-        ['bold', 'italic', 'underline','strike', 'blockquote'],
+        ['bold', 'italic', 'underline','strike'],
         [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
         ['link', 'image', 'formula'],
         ['clean']
@@ -37,7 +37,7 @@ export default function Editor() {
     };
   
     const formats = [
-      'bold', 'italic', 'underline', 'strike', 'blockquote',
+      'bold', 'italic', 'underline', 'strike',
       'list', 'bullet', 'indent',
       'link', 'image', 'formula'
     ];

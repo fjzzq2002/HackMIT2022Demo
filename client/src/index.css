@@ -139,3 +139,19 @@ input[type="password"]
 .coin path {
   stroke-width: 0.1px !important;
 }
+
+.circle {
+    border-radius: 50%;
+    border-style: solid;
+    border-width: 4px;
+    padding-top: 5px;
+    width: 63px;
+    height: 63px;
+    text-align: center;
+    margin: 20px;
+    opacity: 0.3;
+}
+.circle:hover {
+    opacity: 0.7;
+    cursor: pointer;
+}

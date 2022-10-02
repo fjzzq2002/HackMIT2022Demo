@@ -9,6 +9,10 @@ import { IconContext } from "react-icons";
 import { HiOutlineLightBulb, HiOutlineSparkles, HiOutlineSun, HiOutlineMoon } from 'react-icons/hi';
 import { useNavigate } from "react-router-dom";
 import {cfetch} from './cookiefetch';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import ThumbDownIcon from '@mui/icons-material/ThumbDown';
+import ReportIcon from '@mui/icons-material/Report';
+import SendIcon from '@mui/icons-material/Send';
 
 export async function loader({params}) {
     const uid=params.articleId;
@@ -87,6 +91,39 @@ export default function Article() {
             </div>
             </div>
             {content}
+            <div className="flex justify-center">
+            <div className="inline-block">
+                <div className="flex">
+                <div className="circle" style={{color:"blue",borderColor:"blue"}}>
+                <ThumbUpIcon sx={{ fontSize: 45 }}/>
+                </div>
+                <div className="circle" style={{color:"brown",borderColor:"brown"}}>
+                <ThumbDownIcon sx={{ fontSize: 45 }}/>
+                </div>
+                <div className="circle" style={{color:"red",borderColor:"red"}}>
+                <ReportIcon sx={{ fontSize: 45 }}/>
+                </div>
+                <div className="circle" style={{color:"green",borderColor:"green"}}>
+                <SendIcon sx={{ fontSize: 45 }}/>
+                </div>
+                </div>
+                </div></div>
         </div>
     </>);
 }
+/*
+
+            <div className="flex justify-center">
+            <div className="p-3 mt-10 inline-block" style={{backgroundColor:'#FFDA947F',borderRadius:"15px"}}>
+                <p className="text-2xl">Thanks for reading! Your opinion matters.</p>
+                <div className="flex">
+                <div className="circle">
+                <ThumbUpIcon/>
+                </div>
+                <div className="circle">
+                <ThumbDownIcon/>
+                </div>
+                </div>
+            </div>
+            </div>
+            */
