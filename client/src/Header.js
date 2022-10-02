@@ -6,6 +6,9 @@ import { BiCoinStack } from 'react-icons/bi';
 import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
 import { cfetch } from './cookiefetch';
+import { BiBookOpen, BiPen, BiGlassesAlt } from 'react-icons/bi';
+import {BsPencilSquare} from 'react-icons/bs';
+import {BiHomeAlt, BiLogOut} from 'react-icons/bi';
 
 export default function Header() {
 
@@ -15,7 +18,7 @@ export default function Header() {
   }
   const cookies = new Cookies();
   const [user, setUser] = React.useState(cookies.get('username'));
-  const [coins, setCoins] = React.useState(0);
+  const [coins, setCoins] = React.useState(-1);
   const [rng, setRng] = React.useState(0);
   window.refresh_un = async ()=>{
     const un = cookies.get('username');
@@ -24,9 +27,11 @@ export default function Header() {
       setCoins(0);
     }
     else {
+      console.log('rfun');
       const articleList = await cfetch("http://127.0.0.1:5000/api/getInfo?username="+un)
       .then((res)=>{return res.json()})
       .then((res) => {
+        console.log('EZ');
         setCoins(res.coins);
       });
     }
@@ -34,7 +39,8 @@ export default function Header() {
   };
 
   useEffect(() => {
-    setTimeout(window.refresh_un,5000);
+    if(user&&coins==-1) window.refresh_un();
+    else setTimeout(window.refresh_un,10000);
   });
   return (
     <>
@@ -46,11 +52,23 @@ export default function Header() {
             <div className="relative text-right">
             {
                 user?
-                <div className="text-right text-lg" style={{paddingTop:"10px"}}>
-                    {user}&nbsp;&nbsp;{coins}<BiCoinStack style={{display:"inline",paddingBottom:"3px"}}/>
+                <div className="text-right text-2xl" style={{paddingTop:"10px"}}>
+                    {user}
+                    {(coins>=0)?<>&nbsp;&nbsp;{coins}<BiCoinStack style={{display:"inline",paddingBottom:"3px"}} className="coin"/></>:<></>}
+                    &nbsp;&nbsp;<BiHomeAlt style={{display:"inline",paddingBottom:"3px",fontSize:"25px"}} className="link" onClick={()=>{
+                      document.location='/user/'+user;
+                    }}/>
+                    <BiPen style={{display:"inline",paddingBottom:"3px",paddingLeft:"2px",fontSize:"25px"}} className="link" onClick={()=>{
+                      document.location='/write';
+                    }}/>
+                    <BiLogOut style={{display:"inline",paddingBottom:"3px",fontSize:"25px"}} className="link" onClick={()=>{
+                      cookies.remove('username');
+                      cookies.remove('password');
+                      document.location='/';
+                    }}/>
                 </div>
                 :
-                <div className="text-right text-lg linknl" style={{paddingTop:"12px"}} onClick={loginreg}>
+                <div className="text-right text-2xl linknl" style={{paddingTop:"10px"}} onClick={loginreg}>
                     Login / Register
                 </div>
             }

@@ -135,3 +135,7 @@ input[type="password"]
 {
     background: transparent;
 }
+
+.coin path {
+  stroke-width: 0.1px !important;
+}

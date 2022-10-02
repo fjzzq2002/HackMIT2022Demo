@@ -65,7 +65,9 @@ export default function Article() {
             </span>
             </div>
             <div className="text-xl mt-1">
-                By&nbsp;<span className="link">{articleInfo.author}</span>
+                By&nbsp;<span className="link" onClick={
+                    ()=>{document.location='/user/'+articleInfo.author}
+                }>{articleInfo.author}</span>
             </div>
             </div>
             {content}
