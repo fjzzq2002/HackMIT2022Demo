@@ -51,7 +51,7 @@ export default function Header() {
             <div className="relative text-right">
             {
                 user?
-                <div className="text-right text-2xl" style={{paddingTop:"10px"}}>
+                <div className="text-right text-2xl" style={{paddingTop:"12px"}}>
                     <span className="linknl" onClick={()=>{
                       document.location='/user/'+user;
                     }}>{user}</span>

@@ -86,8 +86,25 @@ function UserPanel(props) {
 
 export default function User() {
     const userInfo=useLoaderData();
+    let nextRefill='';
+    try {
+      const cdate=new Date(new Date().toLocaleString("en-US", {timeZone: 'America/New_York'}));
+      // nextDay is the next day at 0AM
+      const nextDay=new Date(cdate.getFullYear(),cdate.getMonth(),cdate.getDate()+1,0,0,0);
+      const delta=nextDay.getTime()-cdate.getTime();
+      const hours=Math.floor(delta/1000/60/60);
+      const minutes=Math.floor(delta/1000/60)%60;
+      const seconds=Math.floor(delta/1000)%60;
+      let rtime='';
+      if(hours) rtime+=hours+'h';
+      if(minutes) rtime+=minutes+'m';
+      if(seconds) rtime+=seconds+'s';
+      nextRefill=<span> Next daily coin in <span style={{fontWeight:"600"}}>{rtime}</span>.</span>;
+    }
+    catch(e) {
+    }
     return (<>
-    <Greetings text={<span>You've received your daily coin! Next daily coin in <b>3h5m66s</b>.</span>}/>
+    <Greetings text={<span>You've received your daily coin!{nextRefill}</span>}/>
     <UserPanel data={userInfo}/>
     </>)
 }
