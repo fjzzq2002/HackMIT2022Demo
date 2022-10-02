@@ -86,41 +86,67 @@ export default function Article() {
     else {
         content=<div dangerouslySetInnerHTML={{ __html: articleInfo.content }} />;
     }
-    return (<>
-        <div className="text-lg px-10">
-            <div className="flex flex-row justify-between pb-3">
-            <div className="text-3xl">
-            <Tag type={articleInfo.type}/>
-            <span style={{fontWeight:"600",paddingLeft:"10px"}}>
-            {articleInfo.title}
-            </span>
-            </div>
-            <div className="text-xl mt-1">
-                By&nbsp;<span className="link" onClick={
-                    ()=>{document.location='/user/'+articleInfo.author}
-                }>{articleInfo.author}</span>
-            </div>
-            </div>
-            {content}
-            <div className="flex justify-center">
-            <div className="inline-block">
-                <div className="flex">
-                <div className="circle" style={{color:"blue",borderColor:"blue"}}>
-                <ThumbUpIcon sx={{ fontSize: 45 }}/>
-                </div>
-                <div className="circle" style={{color:"brown",borderColor:"brown"}}>
-                <ThumbDownIcon sx={{ fontSize: 45 }}/>
-                </div>
-                <div className="circle" style={{color:"red",borderColor:"red"}}>
-                <ReportIcon sx={{ fontSize: 45 }}/>
-                </div>
-                <div className="circle" style={{color:"green",borderColor:"green"}}>
-                <SendIcon sx={{ fontSize: 45 }}/>
-                </div>
-                </div>
-                </div></div>
-        </div>
-    </>);
+    return (
+		<>
+			<div className="text-lg px-10">
+				<div className="flex flex-row justify-between pb-3">
+					<div className="text-3xl">
+						<Tag type={articleInfo.type} />
+						<span
+							style={{ fontWeight: "600", paddingLeft: "10px" }}
+						>
+							{articleInfo.title}
+						</span>
+					</div>
+					<div className="text-xl mt-1">
+						By&nbsp;
+						<span
+							className="link"
+							onClick={() => {
+								document.location =
+									"/user/" + articleInfo.author;
+							}}
+						>
+							{articleInfo.author}
+						</span>
+					</div>
+				</div>
+				{content}
+				<div className="flex justify-center">
+					<div className="inline-block">
+						<div className="flex">
+							<div
+								className="circle"
+								style={{ color: "blue", borderColor: "blue" }}
+								onClick={() => vote(articleInfo.id, 1)}
+							>
+								<ThumbUpIcon sx={{ fontSize: 45 }} />
+							</div>
+							<div
+								className="circle"
+								style={{ color: "brown", borderColor: "brown" }}
+								onClick={() => vote(articleInfo.id, -1)}
+							>
+								<ThumbDownIcon sx={{ fontSize: 45 }} />
+							</div>
+							<div
+								className="circle"
+								style={{ color: "red", borderColor: "red" }}
+							>
+								<ReportIcon sx={{ fontSize: 45 }} />
+							</div>
+							<div
+								className="circle"
+								style={{ color: "green", borderColor: "green" }}
+							>
+								<SendIcon sx={{ fontSize: 45 }} />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</>
+	);
 }
 /*
 

@@ -314,7 +314,7 @@ app.get("/api/vote", async (req, res) => {
     }
     let user = await User.findOne({username: req.query.loginname});
     const history = getAccess(user, req.query.id);
-    if (!history === null)  {
+    if (!history)  {
         res.send("You don't have access to this article");
         return ;
     }
@@ -331,8 +331,9 @@ app.get("/api/vote", async (req, res) => {
         article.votes.upvotes++;
     else if (req.query.vote == -1) 
         article.votes.downvotes++;
+    article.save();
     chargeUser(article.author, -history.cost);
-    res.send(history.cost);
+    res.send(""+history.cost);
     history.cost = 2;
     user.save();
 });
