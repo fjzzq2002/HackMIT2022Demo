@@ -66,9 +66,7 @@ export default function Header() {
                 </div>
                 :
                 <div className="text-right text-2xl linknl" style={{paddingTop:"10px"}} onClick={loginreg}>
-                  <div className="flex flex-wrap justify-end">
-                  <div className="inline">Login / </div><div className="inline">Register</div>
-                    </div>
+                  Login / Register
                 </div>
             }
             </div>
