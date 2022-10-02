@@ -56,7 +56,7 @@ export default function Previewcard(props) {
     let navigate=useNavigate();
     let id=props.id;
     function toArticle() {
-      navigate("/read/"+id);
+      document.location=("/read/"+id);
     }
   return (
     <>

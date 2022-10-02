@@ -39,7 +39,7 @@ export default function Article() {
 
     function unlock(id) {
         console.log('unlock',id);
-        navigate('/read/'+id);
+        document.location=('/read/'+id);
     }
 
     let content=<></>;
@@ -65,7 +65,7 @@ export default function Article() {
             </span>
             </div>
             <div className="text-xl mt-1">
-                By&nbsp;{articleInfo.author}
+                By&nbsp;<span className="link">{articleInfo.author}</span>
             </div>
             </div>
             {content}
