@@ -144,7 +144,6 @@ app.get('/api/createUser', async (req, res) => {
  */
 app.get('/api/getInfo', (req, res) => {
     User.findOne({username: req.query.username}).then((result) => {
-        console.log(result);
         res.send({coins: result.coins, lastUpdate: result.lastUpdate, articles: result.articles});
     }).catch((err) => {
         console.log(err);

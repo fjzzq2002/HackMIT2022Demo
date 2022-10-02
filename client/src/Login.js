@@ -22,7 +22,11 @@ export default function Login() {
 			const cookies = new Cookies();
 			cookies.set("username", username, { path: "/" });
 			cookies.set("password", md5Password, { path: "/" });
-            setRemark("Successfully registered!");
+            setRemark("Successfully registered & logged in! Redirecting...");
+			if(window.refresh_un) window.refresh_un();
+			setTimeout(()=>{
+				document.location='/';
+			},1500);
             return;
         }
         result = await (await fetch("http://127.0.0.1:5000/api/login" + query)).text();
@@ -31,7 +35,11 @@ export default function Login() {
 			const cookies = new Cookies();
 			cookies.set("username", username, { path: "/" });
 			cookies.set("password", md5Password, { path: "/" });
-			setRemark("Successfully logged in!");
+			setRemark("Successfully logged in! Redirecting...");
+			if(window.refresh_un) window.refresh_un();
+			setTimeout(()=>{
+				document.location='/';
+			},1500);
 			return;
 		}
         console.log(result);
@@ -62,7 +70,7 @@ export default function Login() {
                 size="lg"
 				style={{ width: "20%" }}
 			>
-				Register / Login
+				Login / Register
 			</Button>
 			<p className="text-center" style={{color:"red"}}>{remark}</p>
 		</div>

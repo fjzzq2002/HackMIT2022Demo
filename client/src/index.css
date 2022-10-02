@@ -92,6 +92,9 @@ code {
   text-decoration: underline;
   cursor: pointer;
 }
+.linknl {
+  cursor: pointer;
+}
 
 .ql-container {
   font-size: inherit !important;
