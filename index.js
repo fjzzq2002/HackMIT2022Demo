@@ -443,7 +443,9 @@ app.get('*', (req,res) =>{
 require('dotenv').config();
 
 
-
+var fs = require('fs');
+var http = require('http');
+var https = require('https');
 
 if(process.env.USEHTTPS) {
     // https://stackoverflow.com/a/38525463
