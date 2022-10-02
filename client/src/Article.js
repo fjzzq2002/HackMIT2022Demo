@@ -14,6 +14,7 @@ import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import ReportIcon from '@mui/icons-material/Report';
 import SendIcon from '@mui/icons-material/Send';
 import {url} from './url';
+import {artinfo} from './artinfo';
 
 export async function loader({params}) {
     const uid=params.articleId;
@@ -30,7 +31,9 @@ export async function loader({params}) {
         console.log(error);
         return {id:uid, access:false};
     }
-    return {id:uid,content:data.content,title:data.title,type:data.type,author:data.author,access:true};
+    const info = await artinfo(uid);
+    console.log(info);
+    return {id:uid,content:data.content,title:data.title,type:data.type,author:data.author,access:true, info:info};
 }
 
 function Tag(props) {
@@ -53,6 +56,7 @@ function Tag(props) {
 export default function Article() {
     const articleInfo=useLoaderData();
     const navigate = useNavigate();
+    const [refresh, setRefresh] = React.useState(13123);
 
     async function unlock(id) {
         console.log('unlock',id);
@@ -69,8 +73,21 @@ export default function Article() {
         console.log('vote',id);
         const data = await cfetch(url + '/api/vote?id='+id+'&vote='+vote);
         const txt = await data.text();
-        if (txt == 0) return 0;
-        if (txt == 1) return 1;
+        setRefresh(refresh+1);
+        if (txt == 0) {    
+            if (vote == 1) 
+                articleInfo.info.cost = 2;
+            else
+                articleInfo.info.cost = 3;
+            return 0;
+        }
+        if (txt == 1) {
+            if (vote == 1) 
+                articleInfo.info.cost = 2;
+            else
+                articleInfo.info.cost = 3;
+            return 1;
+        }
         return -1;
     };
 
@@ -85,20 +102,31 @@ export default function Article() {
         </>);
     }
     else {
-        content=<>
-        <div dangerouslySetInnerHTML={{ __html: articleInfo.content }} />
-        <div className="flex justify-center">
-            <div className="inline-block">
-                <div className="flex">
+        content = (
+			<>
+				<div
+					dangerouslySetInnerHTML={{ __html: articleInfo.content }}
+				/>
+				<div className="flex justify-center">
+					<div className="inline-block">
+						<div className="flex">
 							<div
-								className="circle"
+								className={
+									articleInfo.info.cost == 2
+										? "circle-a"
+										: "circle"
+								}
 								style={{ color: "blue", borderColor: "blue" }}
 								onClick={() => vote(articleInfo.id, 1)}
 							>
 								<ThumbUpIcon sx={{ fontSize: 45 }} />
 							</div>
 							<div
-								className="circle"
+								className={
+									articleInfo.info.cost == 3
+										? "circle-a"
+										: "circle"
+								}
 								style={{ color: "brown", borderColor: "brown" }}
 								onClick={() => vote(articleInfo.id, -1)}
 							>
@@ -111,14 +139,20 @@ export default function Article() {
 								<ReportIcon sx={{ fontSize: 45 }} />
 							</div>
 							<div
-								className="circle"
+								className={
+									articleInfo.info.shared
+										? "circle-a"
+										: "circle"
+								}
 								style={{ color: "green", borderColor: "green" }}
 							>
 								<SendIcon sx={{ fontSize: 45 }} />
 							</div>
-                </div>
-                </div></div>
-        </>;
+						</div>
+					</div>
+				</div>
+			</>
+		);
     }
     return (<>
         <div className="text-lg px-10">

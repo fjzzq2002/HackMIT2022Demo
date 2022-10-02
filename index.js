@@ -147,6 +147,7 @@ app.get('/api/getInfo', (req, res) => {
         res.send({coins: result.coins, lastUpdate: result.lastUpdate, articles: result.articles});
     }).catch((err) => {
         console.log(err);
+        res.status(500).send("No such user");
     });
 });
 
@@ -336,6 +337,8 @@ app.get("/api/vote", async (req, res) => {
         chargeUser(article.author, -history.cost);
     res.send(""+history.cost);
     history.cost = 2;
+    if (req.query.vote == -1)
+        history.cost = 3;
     user.save();
 });
 
