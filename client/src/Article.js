@@ -62,6 +62,17 @@ export default function Article() {
         document.location=('/read/'+id);
     }
 
+    async function vote(id, vote) {
+        // return -1: if you are the author, or you have voted
+        // otherwise, return your orginal cost (0/1)
+        console.log('vote',id);
+        const data = await cfetch('http://localhost:5000/api/vote?id='+id+'&vote='+vote);
+        const txt = await data.text();
+        if (txt == 0) return 0;
+        if (txt == 1) return 1;
+        return -1;
+    };
+
     let content=<></>;
     if(!articleInfo.access) {
         content=(<>

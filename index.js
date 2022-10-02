@@ -66,7 +66,7 @@ async function verifyCookie(req) {
 }
 
 
-async function postArticle(req, title, content, description, type) {
+async function postArticle(res, req, title, content, description, type) {
     const newId = Math.floor(Math.random() * 1000000);
     const author = req.query.loginname;
 	const article = new Article({
@@ -94,6 +94,7 @@ async function postArticle(req, title, content, description, type) {
     const user = await User.findOne({ username: author });
     user.articles.push({article: newId, cost: -1, shared: true});
     user.save();
+    res.send(newId);
 }
 
 async function fetchArticle(id) {
@@ -191,7 +192,7 @@ app.post('/api/post', async (req, res) => {
         return ;
     }
     const result = req.body;
-    await postArticle(req, result.title, result.content, result.description, result.type);
+    return await postArticle(res, req, result.title, result.content, result.description, result.type);
 });
 
 function getAccess(user, article) {
@@ -331,6 +332,7 @@ app.get("/api/vote", async (req, res) => {
     else if (req.query.vote == -1) 
         article.votes.downvotes++;
     chargeUser(article.author, -history.cost);
+    res.send(history.cost);
     history.cost = 2;
     user.save();
 });
