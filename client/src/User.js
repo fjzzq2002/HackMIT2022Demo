@@ -27,6 +27,7 @@ function UserPanel(props) {
     const listWritten=[];//props.listWritten;
     for(const t of userInfo.articles) {
       console.log(t.article);
+      if(!articleMap[t.article]) continue;
       if(t.cost>=0)
         listOwned.push(articleMap[t.article]);
       else
