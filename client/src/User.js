@@ -8,6 +8,7 @@ import Previewcard from './Previewcard';
 import useEffect from 'react';
 import {url} from "./url";
 import { cfetch } from './cookiefetch';
+import Cookies from "universal-cookie";
 
 export async function loader({params}) {
   const articleList = await (await cfetch(url + "/api/list")).json();
@@ -88,6 +89,8 @@ function UserPanel(props) {
 export default function User() {
     const userInfo=useLoaderData();
     let nextRefill='';
+    const cookies = new Cookies();
+    const username = cookies.get('username');
     try {
       const cdate=new Date(new Date().toLocaleString("en-US", {timeZone: 'America/New_York'}));
       // nextDay is the next day at 0AM
@@ -105,7 +108,11 @@ export default function User() {
     catch(e) {
     }
     return (<>
-    <Greetings text={<span>You've received your daily coin!{nextRefill}</span>}/>
+    {
+      (userInfo.id==username)?
+      <Greetings text={<span>You've received your daily coin!{nextRefill}</span>}/>:
+      <></>
+  }
     <UserPanel data={userInfo}/>
     </>)
 }
