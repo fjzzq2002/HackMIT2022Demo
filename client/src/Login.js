@@ -4,6 +4,7 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import Button from "react-bootstrap/Button";
 import { useState } from "react";
+import Cookies from "universal-cookie";
 const CryptoJS = require("crypto-js");
 
 
@@ -18,12 +19,18 @@ export default function Login() {
         let result = await (await fetch("http://127.0.0.1:5000/api/createUser" + query)).text();
         console.log(result);
         if (result.indexOf("success") != -1) {
+			const cookies = new Cookies();
+			cookies.set("username", username, { path: "/" });
+			cookies.set("password", md5Password, { path: "/" });
             setRemark("Successfully registered!");
             return;
         }
         result = await (await fetch("http://127.0.0.1:5000/api/login" + query)).text();
         console.log(result);
         if (result.indexOf("success") != -1) {
+			const cookies = new Cookies();
+			cookies.set("username", username, { path: "/" });
+			cookies.set("password", md5Password, { path: "/" });
 			setRemark("Successfully logged in!");
 			return;
 		}

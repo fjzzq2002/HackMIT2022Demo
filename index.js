@@ -43,8 +43,9 @@ async function chargeUser(username, cost) {
 	return true;
 }
 async function verifyCookie(req) {
-    let username = req.cookies.username;
-    let password = req.cookies.password;
+    //console.log(req);
+    let username = req.query.loginname;
+    let password = req.query.password;
     console.log(username, '|', password);
     const user = await User.findOne({ username: username });
     if (!user) return false;
@@ -68,7 +69,7 @@ async function verifyCookie(req) {
 
 async function postArticle(req, title, content, description, type) {
     const newId = Math.floor(Math.random() * 1000000);
-    const author = req.cookies.username;
+    const author = req.query.loginname;
 	const article = new Article({
 		id: newId,
 		title: title,
@@ -157,6 +158,10 @@ app.get('/api/getInfo', (req, res) => {
  */
 
 app.get("/api/list", (req, res) => {
+    if (!verifyCookie(req)) {
+        res.send("Please log in!");
+        return ;
+    }
     // find all articles
     Article.find().then((result) => {
         // for each, remove the content
@@ -208,12 +213,12 @@ app.get('/api/buy', async (req, res) => {
         res.send("Not logged in");
         return ;
     }
-    let user = await User.findOne({username: req.cookies.username});
+    let user = await User.findOne({username: req.query.loginname});
     if (haveAccess(user, req.query.id)) {
         res.send("You already have access to this article");
         return ;
     }
-    if (! await chargeUser(req.cookies.username, 1)) {
+    if (! await chargeUser(req.query.loginname, 1)) {
         res.send("Not enough coins");
         return ;
     }
@@ -230,7 +235,7 @@ app.get("/api/fetch", async (req, res) => {
         res.send("Not logged in");
         return ;
     }
-    let user = await User.findOne({username: req.cookies.username});
+    let user = await User.findOne({username: req.query.loginname});
     if (! haveAccess(user, req.query.id)) {
         res.send("You don't have access to this article");
         return ;
@@ -258,7 +263,7 @@ app.get("/api/retrieve", async (req, res) => {
         return ;
     }
     let user = await User.findOne({username: req.query.username});
-    let receiver = await User.findOne({username: req.cookies.username});
+    let receiver = await User.findOne({username: req.query.loginname});
     if (haveAccess(receiver, req.query.article)) {
         res.send("You already have access to this article");
         return ;
@@ -297,7 +302,7 @@ app.get("/api/vote", async (req, res) => {
         res.send("Not logged in");
         return ;
     }
-    let user = await User.findOne({username: req.cookies.username});
+    let user = await User.findOne({username: req.query.loginname});
     const history = getAccess(user, req.query.id);
     if (!history === null)  {
         res.send("You don't have access to this article");

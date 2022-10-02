@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './index.css';
+import Cookies from "universal-cookie";
 import Greetings from "./Greetings";
 import { BiCoinStack, BiBookOpen, BiPen, BiGlassesAlt } from 'react-icons/bi';
 import { BsBook, BsVectorPen, BsPen } from 'react-icons/bs';
@@ -16,6 +17,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import katex from 'katex';
 import 'katex/dist/katex.min.css';
+
 window.katex = katex;
 
 export default function Editor() {
@@ -54,7 +56,13 @@ export default function Editor() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({content: content, title: title, description: description, type: type})
         };
-        const result = await fetch("http://localhost:5000/api/post", requestOptions);
+        const cookies = new Cookies();
+        const suffix =
+			"?loginname=" +
+			cookies.get("username") +
+			"&password=" +
+			cookies.get("password");
+        const result = await fetch("http://localhost:5000/api/post" + suffix, requestOptions);
         console.log(await result.text());
     }
 

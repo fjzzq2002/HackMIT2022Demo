@@ -3,11 +3,8 @@ import { Route, Routes } from 'react-router-dom';
 import './index.css';
 import Greetings from "./Greetings";
 import { BiCoinStack } from 'react-icons/bi';
-import { useCookies } from 'react-cookie';
 
 export default function Header() {
-  const [cookies, setCookie] = useCookies(['username','password']);
-  console.log(cookies);
   const [user, setUser] = React.useState(null);
   const [coins, setCoins] = React.useState(0);
   useEffect(() => {
